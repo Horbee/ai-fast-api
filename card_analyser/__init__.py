@@ -3,7 +3,7 @@ import os
 import numpy as np
 import torchvision.transforms as transforms
 from PIL import Image
-from simple_card_classifier import SimpleCardClassifier
+from .model import SimpleCardClassifier
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

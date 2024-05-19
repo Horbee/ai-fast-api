@@ -1,5 +1,5 @@
-from model import model_pipeline
-from card_model import model_pipeline as card_model_pipeline
+from image_analyser import model_pipeline
+from card_analyser import model_pipeline as card_model_pipeline
 
 from fastapi import FastAPI, UploadFile
 import io
