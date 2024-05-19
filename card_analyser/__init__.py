@@ -6,7 +6,7 @@ from PIL import Image
 from .model import SimpleCardClassifier
 
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 
 model = SimpleCardClassifier()
 model.load_state_dict(torch.load(os.path.join(os.path.dirname(__file__), "card_model.pt"), map_location=device))
