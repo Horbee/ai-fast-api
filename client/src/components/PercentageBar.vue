@@ -9,10 +9,10 @@ const width = computed(() => {
 </script>
 
 <template>
-  <div class="relative">
-    <div class="h-[15px] w-[250px] bg-slate-400"></div>
+  <div class="relative overflow-hidden">
+    <div class="h-4 w-[250px] bg-slate-400 rounded-full"></div>
     <div
-      class="h-[15px] bg-blue-500 absolute top-0 left-0 animate-fill"
+      class="h-4 bg-blue-700 absolute top-0 left-0 animate-fill rounded-full"
       :style="{ width }"
     ></div>
   </div>
@@ -29,6 +29,6 @@ const width = computed(() => {
 }
 
 .animate-fill {
-  animation: fill 1s ease-in-out forwards;
+  animation: fill 0.25s ease-out forwards;
 }
 </style>

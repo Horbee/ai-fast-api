@@ -7,3 +7,4 @@ transformers
 uvicorn
 timm
 numpy
+python-dotenv

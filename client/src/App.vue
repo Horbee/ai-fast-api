@@ -16,7 +16,7 @@ const api = useDefaultApi();
 
 const onClick = async () => {
   if (!image.value) return;
-  const { data } = await api.cardCardPost(image.value);
+  const { data } = await api.cardApiCardPost(image.value);
   probabilities.value = data.probabilities;
 };
 
@@ -60,7 +60,7 @@ const formatPercentage = (value: number) => {
         hidden
       />
     </div>
-    <Button @click="onClick">Analyse</Button>
+    <Button @click="onClick" :disabled="!image">Analyse</Button>
 
     <div v-for="p in probabilities" class="flex items-center gap-4">
       <span> {{ p.name }}: {{ formatPercentage(p.probability) }} </span>

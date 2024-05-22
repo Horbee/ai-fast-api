@@ -5,5 +5,5 @@ import { DefaultApi } from "@/api";
 export const useDefaultApi = () => {
   const httpClient = axios.create();
 
-  return new DefaultApi(undefined, "/api", httpClient);
+  return new DefaultApi(undefined, window.origin, httpClient);
 };

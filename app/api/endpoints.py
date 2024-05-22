@@ -1,22 +1,22 @@
 from image_analyser import model_pipeline
 from card_analyser import model_pipeline as card_model_pipeline
+from card_analyser.types import CardResponse
 
-from fastapi import FastAPI, UploadFile
+from fastapi import APIRouter, UploadFile
+
 import io
 from PIL import Image
-from typing import Dict, List
-from typing_extensions import TypedDict
-
-app = FastAPI()
 
 
+router = APIRouter(prefix="/api")
 
-@app.get("/health")
-def health_check() -> Dict[str, str]:
+
+@router.get("/health")
+def health_check() -> dict[str, str]:
     return {"status": "UP"}
 
 
-@app.post("/ask")
+@router.post("/ask")
 def ask(text: str, image: UploadFile):
     content = image.file.read()
     
@@ -27,15 +27,7 @@ def ask(text: str, image: UploadFile):
     return {"answer": result}
 
 
-class ProbabilityResponse(TypedDict):
-    name: str
-    probability: float
-
-class CardResponse(TypedDict):
-    probabilities: List[ProbabilityResponse]
-
-
-@app.post("/card")
+@router.post("/card")
 def card(image: UploadFile) -> CardResponse:
     content = image.file.read()
     
@@ -43,6 +35,3 @@ def card(image: UploadFile) -> CardResponse:
     
     probabilities = card_model_pipeline(image)
     return {"probabilities": probabilities}
-    
-    
-    

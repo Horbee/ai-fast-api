@@ -5,9 +5,11 @@ services:
     build:
       context: .
     container_name: ai-fastapi-service
+    environment:
+      - ENVIRONMENT=development
     ports:
       - 8000:8000
-    command: ["sh", "-c", "fastapi dev main.py --host 0.0.0.0 --port 8000"]
+    command: ["sh", "-c", "fastapi dev app/main.py --host 0.0.0.0 --port 8000"]
     volumes:
       - .:/app
 # The commented out section below is an example of how to define a PostgreSQL

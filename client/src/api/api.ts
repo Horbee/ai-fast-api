@@ -115,12 +115,12 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        askAskPost: async (text: string, image: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        askApiAskPost: async (text: string, image: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'text' is not null or undefined
-            assertParamExists('askAskPost', 'text', text)
+            assertParamExists('askApiAskPost', 'text', text)
             // verify required parameter 'image' is not null or undefined
-            assertParamExists('askAskPost', 'image', image)
-            const localVarPath = `/ask`;
+            assertParamExists('askApiAskPost', 'image', image)
+            const localVarPath = `/api/ask`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -162,10 +162,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cardCardPost: async (image: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        cardApiCardPost: async (image: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'image' is not null or undefined
-            assertParamExists('cardCardPost', 'image', image)
-            const localVarPath = `/card`;
+            assertParamExists('cardApiCardPost', 'image', image)
+            const localVarPath = `/api/card`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -202,8 +202,8 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        healthCheckHealthGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/health`;
+        healthCheckApiHealthGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/health`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -244,8 +244,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async askAskPost(text: string, image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.askAskPost(text, image, options);
+        async askApiAskPost(text: string, image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.askApiAskPost(text, image, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -255,8 +255,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cardCardPost(image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CardResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cardCardPost(image, options);
+        async cardApiCardPost(image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CardResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cardApiCardPost(image, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -265,8 +265,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async healthCheckHealthGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: string; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.healthCheckHealthGet(options);
+        async healthCheckApiHealthGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: string; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.healthCheckApiHealthGet(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -287,8 +287,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        askAskPost(text: string, image: File, options?: any): AxiosPromise<void> {
-            return localVarFp.askAskPost(text, image, options).then((request) => request(axios, basePath));
+        askApiAskPost(text: string, image: File, options?: any): AxiosPromise<void> {
+            return localVarFp.askApiAskPost(text, image, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -297,8 +297,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cardCardPost(image: File, options?: any): AxiosPromise<CardResponse> {
-            return localVarFp.cardCardPost(image, options).then((request) => request(axios, basePath));
+        cardApiCardPost(image: File, options?: any): AxiosPromise<CardResponse> {
+            return localVarFp.cardApiCardPost(image, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -306,8 +306,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        healthCheckHealthGet(options?: any): AxiosPromise<{ [key: string]: string; }> {
-            return localVarFp.healthCheckHealthGet(options).then((request) => request(axios, basePath));
+        healthCheckApiHealthGet(options?: any): AxiosPromise<{ [key: string]: string; }> {
+            return localVarFp.healthCheckApiHealthGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -328,8 +328,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public askAskPost(text: string, image: File, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).askAskPost(text, image, options).then((request) => request(this.axios, this.basePath));
+    public askApiAskPost(text: string, image: File, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).askApiAskPost(text, image, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -340,8 +340,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public cardCardPost(image: File, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).cardCardPost(image, options).then((request) => request(this.axios, this.basePath));
+    public cardApiCardPost(image: File, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).cardApiCardPost(image, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -351,8 +351,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public healthCheckHealthGet(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).healthCheckHealthGet(options).then((request) => request(this.axios, this.basePath));
+    public healthCheckApiHealthGet(options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).healthCheckApiHealthGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
