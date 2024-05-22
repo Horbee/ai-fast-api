@@ -10,6 +10,7 @@
     "generate:client": "openapi-generator-cli generate -g typescript-axios -i http://localhost:8000/openapi.json -o src/api"
   },
   "dependencies": {
+    "@vueuse/core": "^10.9.0",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

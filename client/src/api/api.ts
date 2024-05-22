@@ -52,6 +52,19 @@ export interface HTTPValidationError {
 /**
  * 
  * @export
+ * @interface ImageAnalyserResponse
+ */
+export interface ImageAnalyserResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ImageAnalyserResponse
+     */
+    'answer': string;
+}
+/**
+ * 
+ * @export
  * @interface ProbabilityResponse
  */
 export interface ProbabilityResponse {
@@ -244,7 +257,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async askApiAskPost(text: string, image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async askApiAskPost(text: string, image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageAnalyserResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.askApiAskPost(text, image, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -287,7 +300,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        askApiAskPost(text: string, image: File, options?: any): AxiosPromise<void> {
+        askApiAskPost(text: string, image: File, options?: any): AxiosPromise<ImageAnalyserResponse> {
             return localVarFp.askApiAskPost(text, image, options).then((request) => request(axios, basePath));
         },
         /**

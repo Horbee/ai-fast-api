@@ -1,6 +1,7 @@
 from image_analyser import model_pipeline
 from card_analyser import model_pipeline as card_model_pipeline
 from card_analyser.types import CardResponse
+from image_analyser.types import ImageAnalyserResponse
 
 from fastapi import APIRouter, UploadFile
 
@@ -17,11 +18,10 @@ def health_check() -> dict[str, str]:
 
 
 @router.post("/ask")
-def ask(text: str, image: UploadFile):
+def ask(text: str, image: UploadFile) -> ImageAnalyserResponse:
     content = image.file.read()
     
     image = Image.open(io.BytesIO(content))
-    # image = Image.open(image.file)
     
     result = model_pipeline(text, image)
     return {"answer": result}
