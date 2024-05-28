@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 import Dropzone from "@/components/Dropzone.vue";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,7 @@ const response = ref<{ answer: string; question: string } | null>(null);
 
 const { toast } = useToast();
 const api = useDefaultApi();
+const { t } = useI18n();
 
 const onClick = async () => {
   if (!image.value || !question.value) return;
@@ -30,8 +32,8 @@ const onClick = async () => {
   } catch (error) {
     console.error("Error while analysing image", error);
     toast({
-      title: "Uh oh! Something went wrong.",
-      description: "Error while analysing image",
+      title: t("imageAnalyser.error.title"),
+      description: t("imageAnalyser.error.description"),
       variant: "destructive",
     });
   } finally {
@@ -44,7 +46,9 @@ const onClick = async () => {
   <div class="flex flex-col gap-4 items-center p-4">
     <Dropzone @select="(file) => (image = file)" />
     <Input v-model="question" />
-    <Button @click="onClick" :disabled="!image || loading">Ask</Button>
+    <Button @click="onClick" :disabled="!image || loading">
+      {{ t("imageAnalyser.buttonTitle") }}
+    </Button>
 
     <div
       v-if="!!response"

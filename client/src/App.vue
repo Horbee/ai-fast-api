@@ -13,8 +13,10 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
       class="flex flex-col items-center justify-center"
     >
       <TabsList>
-        <TabsTrigger value="card"> Card Analyser </TabsTrigger>
-        <TabsTrigger value="image"> Image Analyser </TabsTrigger>
+        <TabsTrigger value="card"> {{ $t("cardAnalyser.name") }} </TabsTrigger>
+        <TabsTrigger value="image">
+          {{ $t("imageAnalyser.name") }}
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="card">
         <CardAnalyser />

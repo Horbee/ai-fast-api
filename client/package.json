@@ -18,7 +18,8 @@
     "radix-vue": "^1.8.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-i18n": "9"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
@@ -29,5 +30,6 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"
-  }
+  },
+  "packageManager": "pnpm@9.1.2"
 }

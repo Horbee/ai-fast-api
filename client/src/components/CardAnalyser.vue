@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 import Dropzone from "@/components/Dropzone.vue";
 import PercentageBar from "@/components/PercentageBar.vue";
@@ -16,6 +17,7 @@ const loading = ref(false);
 
 const api = useDefaultApi();
 const { toast } = useToast();
+const { t } = useI18n();
 
 const onClick = async () => {
   if (!image.value) return;
@@ -27,8 +29,8 @@ const onClick = async () => {
   } catch (error) {
     console.error("Error while analysing card", error);
     toast({
-      title: "Uh oh! Something went wrong.",
-      description: "Error while analysing card",
+      title: t("cardAnalyser.error.title"),
+      description: t("cardAnalyser.error.description"),
       variant: "destructive",
     });
   } finally {
@@ -43,20 +45,33 @@ const formatPercentage = (value: number) => {
   });
   return percentage + "%";
 };
+
+const translatedCardName = (name: string) =>
+  t(`cardAnalyser.cardNames.${name}`);
 </script>
 
 <template>
   <div class="flex flex-col gap-4 items-center p-4">
+    <blockquote class="max-w-[400px] border-l-2 pl-6 italic">
+      {{ t("cardAnalyser.description") }}
+    </blockquote>
     <Dropzone
       @select="(file) => (image = file)"
       :placeholder-icon="cardSvg"
       class="min-h-[350px]"
     />
-    <Button @click="onClick" :disabled="!image || loading">Analyse</Button>
+    <Button @click="onClick" :disabled="!image || loading">
+      {{ t("cardAnalyser.buttonTitle") }}
+    </Button>
 
-    <div v-for="p in probabilities" class="flex items-center gap-4">
-      <span> {{ p.name }}: {{ formatPercentage(p.probability) }} </span>
-      <PercentageBar :probability="p.probability" />
+    <div
+      v-for="{ name, probability } in probabilities"
+      class="flex items-center gap-4"
+    >
+      <span>
+        {{ translatedCardName(name) }}: {{ formatPercentage(probability) }}
+      </span>
+      <PercentageBar :probability="probability" />
     </div>
   </div>
 </template>
