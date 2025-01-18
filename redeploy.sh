@@ -13,7 +13,7 @@ pnpm run build && cd ..
 if [ ! -d "venv" ]; then
     python3 -m venv venv
 fi
-source venv/bin/activate
+. venv/bin/activate
 
 # Install Python dependencies
 pip install --no-cache-dir -r requirements.txt
