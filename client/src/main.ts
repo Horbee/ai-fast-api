@@ -4,6 +4,7 @@ import { createI18n } from "vue-i18n";
 import "./styles.css";
 
 import App from "./App.vue";
+import { router } from "./routes";
 
 const userLang = navigator.languages
   ? navigator.languages[0]
@@ -17,6 +18,35 @@ const i18n = createI18n({
   fallbackLocale: "en",
   messages: {
     en: {
+      titanicPredictor: {
+        name: "Titanic",
+        buttonTitle: "Predict",
+        description: "Would you survive the titanic? This model will tell you.",
+        error: {
+          title: "Uh oh! Something went wrong.",
+          description: "Error while predicting response",
+        },
+        input: {
+          class: {
+            label: "Ticket Class",
+            value1: "1st = Upper",
+            value2: "2nd = Middle",
+            value3: "3rd = Lower",
+          },
+          sex: {
+            label: "Sex",
+            value0: "Male",
+            value1: "Female",
+          },
+          age: {
+            label: "Age",
+          },
+          family_size: {
+            label: "Family Members on Titanic",
+          },
+        },
+        formProbabilityLabel: "Your chance of survival is:",
+      },
       cardAnalyser: {
         name: "Card Analyser",
         buttonTitle: "Analyse",
@@ -91,12 +121,42 @@ const i18n = createI18n({
         },
       },
     },
-    de: {
+    hu: {
+      titanicPredictor: {
+        name: "Titanic",
+        buttonTitle: "Előrejelzés",
+        description: "Túlélnéd a Titanicot? Ez a modell megmondja.",
+        error: {
+          title: "Hoppá! Valami hiba történt.",
+          description: "Hiba történt az előrejelzés során",
+        },
+        input: {
+          class: {
+            label: "Jegyosztály",
+            value1: "1. = Felső",
+            value2: "2. = Középső",
+            value3: "3. = Alsó",
+          },
+          sex: {
+            label: "Nem",
+            value0: "Férfi",
+            value1: "Nő",
+          },
+          age: {
+            label: "Életkor",
+          },
+          family_size: {
+            label: "Családtagok száma a Titanicon",
+          },
+        },
+        formProbabilityLabel: "Túlélési esélyed:",
+      },
+
       cardAnalyser: {
-        name: "Kártyás Pityu v1.0",
+        name: "Kártyás Pityu",
         buttonTitle: "Elemzés",
         description:
-          "Ez az AI Card Analyzer modell a francia kártyák felismerésére specializálódott.",
+          "Ez a modell a francia kártyák felismerésére specializálódott.",
         error: {
           title: "Uh oh! Valami rosszul sült el.",
           description: "Hiba a kártya elemzésekor",
@@ -169,4 +229,4 @@ const i18n = createI18n({
   },
 });
 
-createApp(App).use(i18n).mount("#app");
+createApp(App).use(i18n).use(router).mount("#app");

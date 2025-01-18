@@ -84,6 +84,50 @@ export interface ProbabilityResponse {
 /**
  * 
  * @export
+ * @interface TitanicInputData
+ */
+export interface TitanicInputData {
+    /**
+     * 
+     * @type {number}
+     * @memberof TitanicInputData
+     */
+    'pclass': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TitanicInputData
+     */
+    'sex': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TitanicInputData
+     */
+    'age': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TitanicInputData
+     */
+    'family_size': number;
+}
+/**
+ * 
+ * @export
+ * @interface TitanicResponse
+ */
+export interface TitanicResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof TitanicResponse
+     */
+    'probability': number;
+}
+/**
+ * 
+ * @export
  * @interface ValidationError
  */
 export interface ValidationError {
@@ -239,6 +283,42 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Titanic
+         * @param {TitanicInputData} titanicInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        titanicApiTitanicPost: async (titanicInputData: TitanicInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'titanicInputData' is not null or undefined
+            assertParamExists('titanicApiTitanicPost', 'titanicInputData', titanicInputData)
+            const localVarPath = `/api/titanic`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(titanicInputData, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -282,6 +362,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.healthCheckApiHealthGet(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @summary Titanic
+         * @param {TitanicInputData} titanicInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async titanicApiTitanicPost(titanicInputData: TitanicInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TitanicResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.titanicApiTitanicPost(titanicInputData, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -321,6 +412,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         healthCheckApiHealthGet(options?: any): AxiosPromise<{ [key: string]: string; }> {
             return localVarFp.healthCheckApiHealthGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Titanic
+         * @param {TitanicInputData} titanicInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        titanicApiTitanicPost(titanicInputData: TitanicInputData, options?: any): AxiosPromise<TitanicResponse> {
+            return localVarFp.titanicApiTitanicPost(titanicInputData, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -366,6 +467,18 @@ export class DefaultApi extends BaseAPI {
      */
     public healthCheckApiHealthGet(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).healthCheckApiHealthGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Titanic
+     * @param {TitanicInputData} titanicInputData 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public titanicApiTitanicPost(titanicInputData: TitanicInputData, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).titanicApiTitanicPost(titanicInputData, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

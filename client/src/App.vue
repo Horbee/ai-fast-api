@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import CardAnalyser from "@/components/CardAnalyser.vue";
-import ImageAnalyser from "@/components/ImageAnalyser.vue";
+import { RouterLink, RouterView } from "vue-router";
+
 import ThemeSelector from "@/components/ThemeSelector.vue";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Toaster from "@/components/ui/toast/Toaster.vue";
 </script>
 
@@ -11,25 +10,35 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
   <div class="flex flex-col gap-4 items-center p-4">
     <ThemeSelector />
 
-    <Tabs
-      default-value="card"
-      class="flex flex-col items-center justify-center"
-    >
-      <TabsList>
-        <TabsTrigger value="card">
+    <div class="flex flex-col items-center justify-center">
+      <div
+        class="'inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground'"
+      >
+        <RouterLink
+          to="/titanic"
+          activeClass="bg-background text-foreground shadow-sm"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+        >
+          {{ $t("titanicPredictor.name") }}
+        </RouterLink>
+        <RouterLink
+          to="/card"
+          activeClass="bg-background text-foreground shadow-sm"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+        >
           {{ $t("cardAnalyser.name") }}
-        </TabsTrigger>
-        <TabsTrigger value="image">
+        </RouterLink>
+        <RouterLink
+          to="/image"
+          activeClass="bg-background text-foreground shadow-sm"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+        >
           {{ $t("imageAnalyser.name") }}
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="card">
-        <CardAnalyser />
-      </TabsContent>
-      <TabsContent value="image">
-        <ImageAnalyser />
-      </TabsContent>
-    </Tabs>
+        </RouterLink>
+      </div>
+    </div>
+
+    <RouterView />
   </div>
 
   <Toaster />

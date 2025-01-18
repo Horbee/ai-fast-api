@@ -8,3 +8,4 @@ uvicorn
 timm
 numpy
 python-dotenv
+scikit-learn

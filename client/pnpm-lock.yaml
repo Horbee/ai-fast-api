@@ -33,11 +33,14 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.3)
       vue:
-        specifier: ^3.4.21
+        specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-i18n:
-        specifier: '9'
+        specifier: ^9.13.1
         version: 9.13.1(vue@3.4.27(typescript@5.4.5))
+      vue-router:
+        specifier: '4'
+        version: 4.5.0(vue@3.4.27(typescript@5.4.5))
     devDependencies:
       '@iconify-json/radix-icons':
         specifier: ^1.1.14
@@ -61,13 +64,13 @@ importers:
         specifier: ^3.4.3
         version: 3.4.3
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.4.5
         version: 5.4.5
       vite:
-        specifier: ^5.2.0
+        specifier: ^5.2.11
         version: 5.2.11(@types/node@20.12.12)
       vue-tsc:
-        specifier: ^2.0.6
+        specifier: ^2.0.19
         version: 2.0.19(typescript@5.4.5)
 
 packages:
@@ -496,6 +499,9 @@ packages:
   '@vue/devtools-api@6.6.1':
     resolution: {integrity: sha512-LgPscpE3Vs0x96PzSSB4IGVSZXZBZHpfxs+ZA1d+VEPwHdOXowy/Y2CsvCAIFrf+ssVU1pD1jidj505EpUnfbA==}
 
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
+
   '@vue/language-core@2.0.19':
     resolution: {integrity: sha512-A9EGOnvb51jOvnCYoRLnMP+CcoPlbZVxI9gZXE/y2GksRWM6j/PrLEIC++pnosWTN08tFpJgxhSS//E9v/Sg+Q==}
     peerDependencies:
@@ -619,8 +625,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  caniuse-lite@1.0.30001620:
-    resolution: {integrity: sha512-WJvYsOjd1/BYUY6SNGUosK9DUidBPDTnOARHp3fSmFO1ekdxaY6nKRttEVrfMmYi80ctS0kz1wiWmm14fVc3ew==}
+  caniuse-lite@1.0.30001692:
+    resolution: {integrity: sha512-A95VKan0kdtrsnMubMKxEKUKImOPSuCpYgxSQBo036P5YYgVIcOYJEgt/txJWqObiRQeISNCfef9nvlQ0vbV7A==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1411,6 +1417,11 @@ packages:
     peerDependencies:
       vue: ^3.0.0
 
+  vue-router@4.5.0:
+    resolution: {integrity: sha512-HDuk+PuH5monfNuY+ct49mNmkCRK4xJAV9Ts4z9UFc4rzdDnxQLyCMGGc8pKhZhHTVzfanpNwB/lwqevcBwI4w==}
+    peerDependencies:
+      vue: ^3.2.0
+
   vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}
 
@@ -1842,6 +1853,8 @@ snapshots:
 
   '@vue/devtools-api@6.6.1': {}
 
+  '@vue/devtools-api@6.6.4': {}
+
   '@vue/language-core@2.0.19(typescript@5.4.5)':
     dependencies:
       '@volar/language-core': 2.2.4
@@ -1934,7 +1947,7 @@ snapshots:
   autoprefixer@10.4.19(postcss@8.4.38):
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001620
+      caniuse-lite: 1.0.30001692
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.1
@@ -1984,7 +1997,7 @@ snapshots:
 
   browserslist@4.23.0:
     dependencies:
-      caniuse-lite: 1.0.30001620
+      caniuse-lite: 1.0.30001692
       electron-to-chromium: 1.4.777
       node-releases: 2.0.14
       update-browserslist-db: 1.0.16(browserslist@4.23.0)
@@ -1996,7 +2009,7 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001620: {}
+  caniuse-lite@1.0.30001692: {}
 
   chalk@4.1.2:
     dependencies:
@@ -2748,6 +2761,11 @@ snapshots:
       '@intlify/core-base': 9.13.1
       '@intlify/shared': 9.13.1
       '@vue/devtools-api': 6.6.1
+      vue: 3.4.27(typescript@5.4.5)
+
+  vue-router@4.5.0(vue@3.4.27(typescript@5.4.5)):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
       vue: 3.4.27(typescript@5.4.5)
 
   vue-template-compiler@2.7.16:
