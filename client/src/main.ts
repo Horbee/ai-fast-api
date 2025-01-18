@@ -21,7 +21,7 @@ const i18n = createI18n({
       titanicPredictor: {
         name: "Titanic",
         buttonTitle: "Predict",
-        description: "Would you survive the titanic? This model will tell you.",
+        description: "Would you survive the Titanic? This model will tell you.",
         error: {
           title: "Uh oh! Something went wrong.",
           description: "Error while predicting response",
