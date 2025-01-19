@@ -47,6 +47,28 @@ const i18n = createI18n({
         },
         formProbabilityLabel: "Your chance of survival is:",
       },
+      rainPredictor: {
+        name: "Rain",
+        buttonTitle: "Predict",
+        description:
+          "This model predicts the probability of precipitation based on temperature, humidity and surface pressure.",
+        error: {
+          title: "Uh oh! Something went wrong.",
+          description: "Error while predicting response",
+        },
+        input: {
+          temp: {
+            label: "Temperature",
+          },
+          humidity: {
+            label: "Humidity",
+          },
+          pressure: {
+            label: "Surface pressure",
+          },
+        },
+        formProbabilityLabel: "Chances of rain:",
+      },
       cardAnalyser: {
         name: "Card Analyser",
         buttonTitle: "Analyse",
@@ -151,7 +173,28 @@ const i18n = createI18n({
         },
         formProbabilityLabel: "Túlélési esélyed:",
       },
-
+      rainPredictor: {
+        name: "Csapadék",
+        buttonTitle: "Előrejelzés",
+        description:
+          "Ez a modell a csapadék valószínűségét jósolja a hőmérséklet, páratartalom és a felszíni nyomás alapján.",
+        error: {
+          title: "Hoppá! Valami hiba történt.",
+          description: "Hiba történt az előrejelzés során",
+        },
+        input: {
+          temp: {
+            label: "Hőmérséklet",
+          },
+          humidity: {
+            label: "Páratartalom",
+          },
+          pressure: {
+            label: "Felszíni nyomás",
+          },
+        },
+        formProbabilityLabel: "Eső valószínűsége:",
+      },
       cardAnalyser: {
         name: "Kártyás Pityu",
         buttonTitle: "Elemzés",
