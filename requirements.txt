@@ -3,7 +3,6 @@ Pillow
 python-multipart
 torch
 torchvision
-transformers
 uvicorn
 timm
 numpy

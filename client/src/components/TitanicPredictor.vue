@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { formatPercentage } from "@/lib/utils";
 
 const formData = reactive({ pclass: "1", sex: "0", age: 20, family_size: 0 });
 const probability = ref<number | null>(null);
@@ -51,14 +52,6 @@ const onClick = async () => {
   } finally {
     loading.value = false;
   }
-};
-
-const formatPercentage = (value: number) => {
-  const percentage = (value * 100).toLocaleString(undefined, {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-  return percentage + "%";
 };
 </script>
 

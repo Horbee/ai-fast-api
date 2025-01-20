@@ -20,3 +20,11 @@ export function readFilePromise(file: File) {
     reader.readAsDataURL(file);
   });
 }
+
+export const formatPercentage = (value: number) => {
+  const percentage = (value * 100).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+  return percentage + "%";
+};

@@ -134,14 +134,6 @@ const i18n = createI18n({
           "two of spades": "two of spades",
         },
       },
-      imageAnalyser: {
-        name: "Image Analyser",
-        buttonTitle: "Ask",
-        error: {
-          title: "Uh oh! Something went wrong.",
-          description: "Error while analysing image",
-        },
-      },
     },
     hu: {
       titanicPredictor: {
@@ -258,14 +250,6 @@ const i18n = createI18n({
           "two of diamonds": "káró kettes",
           "two of hearts": "kőr kettes",
           "two of spades": "pikk kettes",
-        },
-      },
-      imageAnalyser: {
-        name: "Beképzelt Sanyi",
-        buttonTitle: "Kérdezz angolul",
-        error: {
-          title: "Uh oh! Valami rosszul sült el.",
-          description: "Hiba a kép elemzésekor",
         },
       },
     },

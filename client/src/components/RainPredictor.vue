@@ -14,6 +14,7 @@ import {
   NumberFieldIncrement,
   NumberFieldInput,
 } from "@/components/ui/number-field";
+import { formatPercentage } from "@/lib/utils";
 
 const formData = reactive({ temp: 20, humidity: 60, pressure: 1009 });
 const probability = ref<number | null>(null);
@@ -39,14 +40,6 @@ const onClick = async () => {
   } finally {
     loading.value = false;
   }
-};
-
-const formatPercentage = (value: number) => {
-  const percentage = (value * 100).toLocaleString(undefined, {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-  return percentage + "%";
 };
 </script>
 

@@ -10,6 +10,7 @@ import { useToast } from "@/components/ui/toast/use-toast";
 import cardSvg from "@/assets/card.svg";
 
 import type { ProbabilityResponse } from "@/api";
+import { formatPercentage } from "@/lib/utils";
 
 const image = ref<File | null>(null);
 const probabilities = ref<ProbabilityResponse[]>([]);
@@ -36,14 +37,6 @@ const onClick = async () => {
   } finally {
     loading.value = false;
   }
-};
-
-const formatPercentage = (value: number) => {
-  const percentage = (value * 100).toLocaleString(undefined, {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-  return percentage + "%";
 };
 
 const translatedCardName = (name: string) =>
