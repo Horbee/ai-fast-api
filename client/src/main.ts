@@ -134,6 +134,17 @@ const i18n = createI18n({
           "two of spades": "two of spades",
         },
       },
+      tweetAnalyser: {
+        name: "Disaster Tweet",
+        buttonTitle: "Analyse",
+        description:
+          "This model is based on BERT and can detect disaster tweets.",
+        error: {
+          title: "Uh oh! Something went wrong.",
+          description: "Error while analysing tweet",
+        },
+        formProbabilityLabel: "chance of being a disaster tweet",
+      },
     },
     hu: {
       titanicPredictor: {
@@ -251,6 +262,17 @@ const i18n = createI18n({
           "two of hearts": "kőr kettes",
           "two of spades": "pikk kettes",
         },
+      },
+      tweetAnalyser: {
+        name: "Katasztrófa Tweet",
+        buttonTitle: "Elemzés",
+        description:
+          "Ez a BERT alapú modell képes felismerni a katasztrófákról szóló tweeteket.",
+        error: {
+          title: "Hoppá! Valami hiba történt.",
+          description: "Hiba történt az elemzés során",
+        },
+        formProbabilityLabel: "esély, hogy katasztrófáról szól",
       },
     },
   },

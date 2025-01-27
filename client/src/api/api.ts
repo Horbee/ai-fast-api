@@ -153,6 +153,38 @@ export interface TitanicResponse {
 /**
  * 
  * @export
+ * @interface TweetInputData
+ */
+export interface TweetInputData {
+    /**
+     * 
+     * @type {string}
+     * @memberof TweetInputData
+     */
+    'tweet': string;
+}
+/**
+ * 
+ * @export
+ * @interface TweetResponse
+ */
+export interface TweetResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof TweetResponse
+     */
+    'disaster_prob': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TweetResponse
+     */
+    'is_disaster': boolean;
+}
+/**
+ * 
+ * @export
  * @interface ValidationError
  */
 export interface ValidationError {
@@ -332,6 +364,42 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Tweet
+         * @param {TweetInputData} tweetInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tweetApiTweetPost: async (tweetInputData: TweetInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tweetInputData' is not null or undefined
+            assertParamExists('tweetApiTweetPost', 'tweetInputData', tweetInputData)
+            const localVarPath = `/api/tweet`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tweetInputData, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -385,6 +453,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.titanicApiTitanicPost(titanicInputData, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @summary Tweet
+         * @param {TweetInputData} tweetInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tweetApiTweetPost(tweetInputData: TweetInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TweetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tweetApiTweetPost(tweetInputData, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -433,6 +512,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         titanicApiTitanicPost(titanicInputData: TitanicInputData, options?: any): AxiosPromise<TitanicResponse> {
             return localVarFp.titanicApiTitanicPost(titanicInputData, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Tweet
+         * @param {TweetInputData} tweetInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tweetApiTweetPost(tweetInputData: TweetInputData, options?: any): AxiosPromise<TweetResponse> {
+            return localVarFp.tweetApiTweetPost(tweetInputData, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -489,6 +578,18 @@ export class DefaultApi extends BaseAPI {
      */
     public titanicApiTitanicPost(titanicInputData: TitanicInputData, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).titanicApiTitanicPost(titanicInputData, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Tweet
+     * @param {TweetInputData} tweetInputData 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public tweetApiTweetPost(tweetInputData: TweetInputData, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).tweetApiTweetPost(tweetInputData, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
