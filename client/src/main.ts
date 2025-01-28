@@ -138,7 +138,9 @@ const i18n = createI18n({
         name: "Disaster Tweet",
         buttonTitle: "Analyse",
         description:
-          "This model is based on BERT and can detect disaster tweets.",
+          "This model is based on {link} and can detect disaster tweets.",
+        inputLabel: "Tweet Text",
+        examplesLabel: "Try one of these:",
         error: {
           title: "Uh oh! Something went wrong.",
           description: "Error while analysing tweet",
@@ -267,11 +269,13 @@ const i18n = createI18n({
         name: "Katasztrófa Tweet",
         buttonTitle: "Elemzés",
         description:
-          "Ez a BERT alapú modell képes felismerni a katasztrófákról szóló tweeteket.",
+          "Ez a {link} alapú modell képes felismerni a katasztrófákról szóló tweeteket.",
         error: {
           title: "Hoppá! Valami hiba történt.",
           description: "Hiba történt az elemzés során",
         },
+        inputLabel: "Tweet szöveg (EN)",
+        examplesLabel: "Próbáld ki az egyiket ezek közül:",
         formProbabilityLabel: "esély, hogy katasztrófáról szól",
       },
     },
