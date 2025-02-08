@@ -147,6 +147,19 @@ const i18n = createI18n({
         },
         formProbabilityLabel: "chance of being a disaster tweet",
       },
+      toxicCommentAnalyser: {
+        name: "Toxic Comment Analyser - German",
+        buttonTitle: "Analyse",
+        description:
+          "This model is based on {link} and can detect toxic comments.",
+        inputLabel: "Comment Text (DE)",
+        examplesLabel: "Try one of these:",
+        error: {
+          title: "Uh oh! Something went wrong.",
+          description: "Error while analysing comment",
+        },
+        formProbabilityLabel: "chance of being toxic",
+      },
     },
     hu: {
       titanicPredictor: {
@@ -277,6 +290,19 @@ const i18n = createI18n({
         inputLabel: "Tweet szöveg (EN)",
         examplesLabel: "Próbáld ki az egyiket ezek közül:",
         formProbabilityLabel: "esély, hogy katasztrófáról szól",
+      },
+      toxicCommentAnalyser: {
+        name: "Toxikus Megjegyzés Analizátor - Német",
+        buttonTitle: "Elemzés",
+        description:
+          "Ez a modell a {link} alapján képes felismerni a toxikus kommenteket.",
+        inputLabel: "Komment szöveg (DE)",
+        examplesLabel: "Próbáld ki az egyiket ezek közül:",
+        error: {
+          title: "Hoppá! Valami hiba történt.",
+          description: "Hiba történt az elemzés során",
+        },
+        formProbabilityLabel: "esély, hogy toxikus",
       },
     },
   },

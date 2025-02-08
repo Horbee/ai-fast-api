@@ -39,6 +39,38 @@ export interface CardResponse {
 /**
  * 
  * @export
+ * @interface CommentInputData
+ */
+export interface CommentInputData {
+    /**
+     * 
+     * @type {string}
+     * @memberof CommentInputData
+     */
+    'comment': string;
+}
+/**
+ * 
+ * @export
+ * @interface CommentResponse
+ */
+export interface CommentResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CommentResponse
+     */
+    'toxic_prob': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommentResponse
+     */
+    'is_toxic': boolean;
+}
+/**
+ * 
+ * @export
  * @interface HTTPValidationError
  */
 export interface HTTPValidationError {
@@ -264,6 +296,42 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Comment
+         * @param {CommentInputData} commentInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        commentApiCommentPost: async (commentInputData: CommentInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'commentInputData' is not null or undefined
+            assertParamExists('commentApiCommentPost', 'commentInputData', commentInputData)
+            const localVarPath = `/api/comment`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(commentInputData, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Health Check
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -423,6 +491,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Comment
+         * @param {CommentInputData} commentInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async commentApiCommentPost(commentInputData: CommentInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.commentApiCommentPost(commentInputData, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Health Check
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -486,6 +565,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Comment
+         * @param {CommentInputData} commentInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        commentApiCommentPost(commentInputData: CommentInputData, options?: any): AxiosPromise<CommentResponse> {
+            return localVarFp.commentApiCommentPost(commentInputData, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Health Check
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -543,6 +632,18 @@ export class DefaultApi extends BaseAPI {
      */
     public cardApiCardPost(image: File, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).cardApiCardPost(image, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Comment
+     * @param {CommentInputData} commentInputData 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public commentApiCommentPost(commentInputData: CommentInputData, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).commentApiCommentPost(commentInputData, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -64,6 +64,15 @@ import {
             </DrawerClose>
             <DrawerClose as-child>
               <RouterLink
+                to="/german-comment"
+                class="transition-colors hover:text-foreground/80 text-foreground/60"
+                activeClass="!text-foreground shadow-sm"
+              >
+                {{ $t("toxicCommentAnalyser.name") }}
+              </RouterLink>
+            </DrawerClose>
+            <DrawerClose as-child>
+              <RouterLink
                 to="/tweet"
                 class="transition-colors hover:text-foreground/80 text-foreground/60"
                 activeClass="!text-foreground shadow-sm"
@@ -108,6 +117,13 @@ import {
             activeClass="!text-foreground shadow-sm"
           >
             {{ $t("tweetAnalyser.name") }}
+          </RouterLink>
+          <RouterLink
+            to="/german-comment"
+            class="transition-colors hover:text-foreground/80 text-foreground/60"
+            activeClass="!text-foreground shadow-sm"
+          >
+            {{ $t("toxicCommentAnalyser.name") }}
           </RouterLink>
           <RouterLink
             to="/card"

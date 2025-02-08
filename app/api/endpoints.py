@@ -2,10 +2,12 @@ from card_analyser import model_pipeline as card_model_pipeline
 from titanic_predictor import model_pipeline as titanic_model_pipeline
 from rain_predictor import model_pipeline as rain_model_pipeline
 from tweet_classifier import model_pipeline as tweet_model_pipeline
+from comment_analyser import model_pipeline as comment_model_pipeline
 from card_analyser.types import CardResponse
 from titanic_predictor.types import TitanicInputData, TitanicResponse
 from rain_predictor.types import RainInputData, RainResponse
 from tweet_classifier.types import TweetInputData, TweetResponse
+from comment_analyser.types import CommentInputData, CommentResponse
 
 from fastapi import APIRouter, UploadFile
 
@@ -48,3 +50,9 @@ def rain(data: RainInputData) -> RainResponse:
 def tweet(data: TweetInputData) -> TweetResponse:
     disaster_prob, prediction = tweet_model_pipeline(data.tweet)
     return {"disaster_prob": disaster_prob, "is_disaster": prediction}
+
+
+@router.post("/comment")
+def comment(data: CommentInputData) -> CommentResponse:
+    toxic_prob, prediction = comment_model_pipeline(data.comment)
+    return {"toxic_prob": toxic_prob, "is_toxic": prediction}
