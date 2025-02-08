@@ -1,5 +1,6 @@
 import torch
 import os
+import re
 from .model import GermanToxicCommentClassifier
 from transformers import BertTokenizer
 
@@ -16,7 +17,24 @@ model.load_state_dict(torch.load(model_path, map_location="cpu"))
 model.eval()
 
 
+def preprocess_german_text(text: str) -> str:
+    # Remove usernames/mentions as they're not relevant for toxicity
+    text = re.sub(r'@\w+', '', text)
+    # Remove URLs as they're not relevant for toxicity
+    text = re.sub(r'http\S+|www\S+|https\S+', '', text)
+    # Remove hashtag symbols but keep the text
+    text = re.sub(r'#', '', text)
+    # Clean up excessive punctuation (keep up to 3 repetitions)
+    text = re.sub(r'([!?.]){4,}', r'\1\1\1', text)
+    # Remove extra whitespace
+    text = ' '.join(text.split())
+
+    return text
+
+
 def model_pipeline(comment: str):
+    comment = preprocess_german_text(comment)
+
     inputs = tokenizer(
         comment,
         truncation=True,
