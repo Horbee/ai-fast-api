@@ -4,12 +4,20 @@ from fastapi import FastAPI, HTTPException
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from dotenv import load_dotenv
 import os
+from db import create_db_and_tables
+from contextlib import asynccontextmanager
 
 
 load_dotenv()
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 app.include_router(router)

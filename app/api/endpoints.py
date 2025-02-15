@@ -7,10 +7,11 @@ from card_analyser.types import CardResponse
 from titanic_predictor.types import TitanicInputData, TitanicResponse
 from rain_predictor.types import RainInputData, RainResponse
 from tweet_classifier.types import TweetInputData, TweetResponse
-from comment_analyser.types import CommentInputData, CommentResponse
-
+from comment_analyser.types import CommentInputData, CommentResponse, CommentPutData
+from db import SessionDep, OffensiveComment
 from fastapi import APIRouter, UploadFile
-
+from sqlmodel import select
+from datetime import datetime
 import io
 from PIL import Image
 
@@ -53,6 +54,24 @@ def tweet(data: TweetInputData) -> TweetResponse:
 
 
 @router.post("/comment")
-def comment(data: CommentInputData) -> CommentResponse:
+def comment(data: CommentInputData, session: SessionDep) -> CommentResponse:
     toxic_prob, prediction = comment_model_pipeline(data.comment)
-    return {"toxic_prob": toxic_prob, "is_toxic": prediction}
+    # Save to database
+    offensive_comment = OffensiveComment(text=data.comment,
+                                         offensive_score=toxic_prob)
+    session.add(offensive_comment)
+    session.commit()
+    session.refresh(offensive_comment)
+
+    return {"toxic_prob": toxic_prob, "is_toxic": prediction, "id": offensive_comment.id}
+
+
+@router.put("/comment/{id}")
+def update_comment(id: int, data: CommentPutData, session: SessionDep):
+    comment = session.exec(select(OffensiveComment).where(
+        OffensiveComment.id == id)).one()
+    comment.is_correct = data.is_correct
+    comment.updated_at = datetime.now()
+    session.add(comment)
+    session.commit()
+    session.refresh(comment)

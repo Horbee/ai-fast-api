@@ -158,6 +158,15 @@ const i18n = createI18n({
           title: "Uh oh! Something went wrong.",
           description: "Error while analysing comment",
         },
+        feedback: {
+          correct: "Correct",
+          incorrect: "Incorrect",
+          saved: "Feedback submitted",
+          error: {
+            title: "Uh oh! Something went wrong.",
+            description: "Error while submitting feedback",
+          },
+        },
         formProbabilityLabel: "chance of being offensive",
       },
     },
@@ -301,6 +310,15 @@ const i18n = createI18n({
         error: {
           title: "Hoppá! Valami hiba történt.",
           description: "Hiba történt az elemzés során",
+        },
+        feedback: {
+          correct: "Helyes",
+          incorrect: "Helytelen",
+          saved: "Visszajelzés mentve",
+          error: {
+            title: "Hoppá! Valami hiba történt.",
+            description: "Hiba történt a visszajelzés elküldésekor",
+          },
         },
         formProbabilityLabel: "esély, hogy offenzív",
       },
@@ -446,6 +464,15 @@ const i18n = createI18n({
         error: {
           title: "Hoppla! Etwas ist schief gelaufen.",
           description: "Fehler beim Analysieren des Kommentars",
+        },
+        feedback: {
+          correct: "Richtig",
+          incorrect: "Falsch",
+          saved: "Feedback gespeichert",
+          error: {
+            title: "Hoppla! Etwas ist schief gelaufen.",
+            description: "Fehler beim Speichern des Feedbacks",
+          },
         },
         formProbabilityLabel: "Chance, dass es offensiv ist",
       },

@@ -9,7 +9,13 @@ import { useToast } from "@/components/ui/toast/use-toast";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import { Icon } from "@iconify/vue";
 import { formatPercentage } from "@/lib/utils";
 import type { CommentResponse } from "@/api";
 
@@ -23,12 +29,33 @@ const exampleComments = [
 const commentText = ref("");
 const response = ref<CommentResponse | null>(null);
 const loading = ref(false);
+const selectedFeedback = ref<"correct" | "incorrect" | null>(null);
 
 const api = useDefaultApi();
 const { toast } = useToast();
 const { t } = useI18n();
 
-const onClick = async () => {
+const onFeedbackClick = async (feedback: "correct" | "incorrect") => {
+  if (!response.value?.id) return;
+
+  selectedFeedback.value = feedback;
+
+  try {
+    await api.updateCommentApiCommentIdPut(response.value.id, {
+      is_correct: feedback === "correct",
+    });
+    toast({ title: t("toxicCommentAnalyser.feedback.saved") });
+  } catch (error) {
+    console.error("Error while updating feedback", error);
+    toast({
+      title: t("toxicCommentAnalyser.feedback.error.title"),
+      description: t("toxicCommentAnalyser.feedback.error.description"),
+      variant: "destructive",
+    });
+  }
+};
+
+const onAnalyseClick = async () => {
   if (!commentText.value.trim()) return;
   await analyse();
 };
@@ -77,19 +104,10 @@ const analyse = async () => {
 
     <div class="flex flex-col gap-4 w-full">
       <Label>{{ t("toxicCommentAnalyser.inputLabel") }}</Label>
-      <Textarea v-model="commentText"> </Textarea>
+      <Textarea v-model="commentText" @keydown.enter="onAnalyseClick" />
     </div>
 
-    <div class="flex flex-col gap-2">
-      <Label> {{ t("toxicCommentAnalyser.examplesLabel") }}</Label>
-      <Badge
-        v-for="comment in exampleComments"
-        @click="fillCommentAndAnalyse(comment)"
-        >{{ comment }}</Badge
-      >
-    </div>
-
-    <Button @click="onClick" :disabled="loading">
+    <Button @click="onAnalyseClick" :disabled="loading">
       {{ t("toxicCommentAnalyser.buttonTitle") }}
     </Button>
 
@@ -99,6 +117,44 @@ const analyse = async () => {
         {{ t("toxicCommentAnalyser.formProbabilityLabel") }}
       </span>
       <PercentageBar :probability="response.toxic_prob" />
+
+      <div class="flex flex-row gap-2">
+        <Button
+          :variant="selectedFeedback === 'correct' ? 'default' : 'outline'"
+          size="lg"
+          @click="onFeedbackClick('correct')"
+        >
+          <Icon icon="mdi:thumbs-up" class="w-4 h-4 mr-2" />
+          {{ t("toxicCommentAnalyser.feedback.correct") }}
+        </Button>
+
+        <Button
+          :variant="selectedFeedback === 'incorrect' ? 'default' : 'outline'"
+          size="lg"
+          @click="onFeedbackClick('incorrect')"
+        >
+          <Icon icon="mdi:thumbs-down" class="w-4 h-4 mr-2" />
+          {{ t("toxicCommentAnalyser.feedback.incorrect") }}
+        </Button>
+      </div>
     </div>
+
+    <Accordion type="single" collapsible class="w-full">
+      <AccordionItem value="1">
+        <AccordionTrigger>
+          {{ t("toxicCommentAnalyser.examplesLabel") }}
+        </AccordionTrigger>
+        <AccordionContent>
+          <div class="flex flex-col gap-2">
+            <Badge
+              v-for="comment in exampleComments"
+              @click="fillCommentAndAnalyse(comment)"
+            >
+              {{ comment }}
+            </Badge>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   </div>
 </template>
