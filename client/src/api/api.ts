@@ -316,14 +316,18 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Comment
+         * @param {CommentApiCommentVersionPostVersionEnum} version 
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        commentApiCommentPost: async (commentInputData: CommentInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        commentApiCommentVersionPost: async (version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('commentApiCommentVersionPost', 'version', version)
             // verify required parameter 'commentInputData' is not null or undefined
-            assertParamExists('commentApiCommentPost', 'commentInputData', commentInputData)
-            const localVarPath = `/api/comment`;
+            assertParamExists('commentApiCommentVersionPost', 'commentInputData', commentInputData)
+            const localVarPath = `/api/comment/{version}`
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -551,12 +555,13 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Comment
+         * @param {CommentApiCommentVersionPostVersionEnum} version 
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async commentApiCommentPost(commentInputData: CommentInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.commentApiCommentPost(commentInputData, options);
+        async commentApiCommentVersionPost(version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.commentApiCommentVersionPost(version, commentInputData, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -637,12 +642,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary Comment
+         * @param {CommentApiCommentVersionPostVersionEnum} version 
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        commentApiCommentPost(commentInputData: CommentInputData, options?: any): AxiosPromise<CommentResponse> {
-            return localVarFp.commentApiCommentPost(commentInputData, options).then((request) => request(axios, basePath));
+        commentApiCommentVersionPost(version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options?: any): AxiosPromise<CommentResponse> {
+            return localVarFp.commentApiCommentVersionPost(version, commentInputData, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -719,13 +725,14 @@ export class DefaultApi extends BaseAPI {
     /**
      * 
      * @summary Comment
+     * @param {CommentApiCommentVersionPostVersionEnum} version 
      * @param {CommentInputData} commentInputData 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public commentApiCommentPost(commentInputData: CommentInputData, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).commentApiCommentPost(commentInputData, options).then((request) => request(this.axios, this.basePath));
+    public commentApiCommentVersionPost(version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).commentApiCommentVersionPost(version, commentInputData, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -789,5 +796,14 @@ export class DefaultApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const CommentApiCommentVersionPostVersionEnum = {
+    V1: 'v1',
+    V2: 'v2',
+    V3: 'v3'
+} as const;
+export type CommentApiCommentVersionPostVersionEnum = typeof CommentApiCommentVersionPostVersionEnum[keyof typeof CommentApiCommentVersionPostVersionEnum];
 
 

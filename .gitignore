@@ -6,4 +6,6 @@ venv
 .DS_Store
 tweet_classifier.pth
 german_toxic_classifier.pth
+german_toxic_classifier_2.pth
+german_toxic_classifier_3.pth
 database.db

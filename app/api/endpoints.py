@@ -2,19 +2,19 @@ from card_analyser import model_pipeline as card_model_pipeline
 from titanic_predictor import model_pipeline as titanic_model_pipeline
 from rain_predictor import model_pipeline as rain_model_pipeline
 from tweet_classifier import model_pipeline as tweet_model_pipeline
-from comment_analyser import model_pipeline as comment_model_pipeline
+from comment_analyser import comment_model_pipeline
 from card_analyser.types import CardResponse
 from titanic_predictor.types import TitanicInputData, TitanicResponse
 from rain_predictor.types import RainInputData, RainResponse
 from tweet_classifier.types import TweetInputData, TweetResponse
 from comment_analyser.types import CommentInputData, CommentResponse, CommentPutData
 from db import SessionDep, OffensiveComment
-from fastapi import APIRouter, UploadFile
+from fastapi import APIRouter, UploadFile, HTTPException
 from sqlmodel import select
 from datetime import datetime
 import io
 from PIL import Image
-
+from typing import Literal
 
 router = APIRouter(prefix="/api")
 
@@ -53,9 +53,10 @@ def tweet(data: TweetInputData) -> TweetResponse:
     return {"disaster_prob": disaster_prob, "is_disaster": prediction}
 
 
-@router.post("/comment")
-def comment(data: CommentInputData, session: SessionDep) -> CommentResponse:
-    toxic_prob, prediction = comment_model_pipeline(data.comment)
+@router.post("/comment/{version}")
+def comment(version: Literal["v1", "v2", "v3"], data: CommentInputData, session: SessionDep) -> CommentResponse:
+    toxic_prob, prediction = comment_model_pipeline(data.comment, version)
+
     # Save to database
     offensive_comment = OffensiveComment(text=data.comment,
                                          offensive_score=toxic_prob)

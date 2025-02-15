@@ -15,6 +15,13 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Icon } from "@iconify/vue";
 import { formatPercentage } from "@/lib/utils";
 import type { CommentResponse } from "@/api";
@@ -30,6 +37,7 @@ const commentText = ref("");
 const response = ref<CommentResponse | null>(null);
 const loading = ref(false);
 const selectedFeedback = ref<"correct" | "incorrect" | null>(null);
+const modelVersion = ref<"v1" | "v2" | "v3">("v3");
 
 const api = useDefaultApi();
 const { toast } = useToast();
@@ -69,9 +77,12 @@ const analyse = async () => {
   try {
     loading.value = true;
 
-    const { data } = await api.commentApiCommentPost({
-      comment: commentText.value,
-    });
+    const { data } = await api.commentApiCommentVersionPost(
+      modelVersion.value,
+      {
+        comment: commentText.value,
+      }
+    );
     response.value = data;
   } catch (error) {
     console.error("Error while predicting response", error);
@@ -101,6 +112,18 @@ const analyse = async () => {
         </template>
       </i18n-t>
     </blockquote>
+
+    <Select v-model="modelVersion">
+      <Label> {{ t("toxicCommentAnalyser.modelVersionInputLabel") }} </Label>
+      <SelectTrigger>
+        <SelectValue placeholder="Model version" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="v1"> V1 </SelectItem>
+        <SelectItem value="v2"> V2 </SelectItem>
+        <SelectItem value="v3"> V3 </SelectItem>
+      </SelectContent>
+    </Select>
 
     <div class="flex flex-col gap-4 w-full">
       <Label>{{ t("toxicCommentAnalyser.inputLabel") }}</Label>

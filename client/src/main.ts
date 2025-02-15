@@ -153,6 +153,7 @@ const i18n = createI18n({
         description:
           "This model is based on {link} and can detect offensive comments.",
         inputLabel: "Comment Text (DE)",
+        modelVersionInputLabel: "Model Version",
         examplesLabel: "Try one of these:",
         error: {
           title: "Uh oh! Something went wrong.",
@@ -306,6 +307,7 @@ const i18n = createI18n({
         description:
           "Ez a modell a {link} alapján képes felismerni a offenzív kommenteket.",
         inputLabel: "Komment szöveg (DE)",
+        modelVersionInputLabel: "Model Verzió",
         examplesLabel: "Próbáld ki az egyiket ezek közül:",
         error: {
           title: "Hoppá! Valami hiba történt.",
@@ -460,6 +462,7 @@ const i18n = createI18n({
         description:
           "Dieses Modell ist auf {link} spezialisiert und kann offensive Kommentare erkennen.",
         inputLabel: "Kommentar-Text (DE)",
+        modelVersionInputLabel: "Model-Version",
         examplesLabel: "Versuche es mit einem dieser:",
         error: {
           title: "Hoppla! Etwas ist schief gelaufen.",
