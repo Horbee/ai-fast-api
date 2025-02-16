@@ -9,6 +9,7 @@ class OffensiveComment(SQLModel, table=True):
     text: str = Field()
     offensive_score: float = Field()
     is_correct: bool | None = Field(index=True)
+    version: str = Field()
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime | None = Field(default=None)
 

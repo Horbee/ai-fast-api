@@ -84,6 +84,7 @@ const analyse = async () => {
       }
     );
     response.value = data;
+    selectedFeedback.value = null;
   } catch (error) {
     console.error("Error while predicting response", error);
     toast({
@@ -113,17 +114,19 @@ const analyse = async () => {
       </i18n-t>
     </blockquote>
 
-    <Select v-model="modelVersion">
-      <Label> {{ t("toxicCommentAnalyser.modelVersionInputLabel") }} </Label>
-      <SelectTrigger>
-        <SelectValue placeholder="Model version" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="v1"> V1 </SelectItem>
-        <SelectItem value="v2"> V2 </SelectItem>
-        <SelectItem value="v3"> V3 </SelectItem>
-      </SelectContent>
-    </Select>
+    <div class="flex flex-col gap-4 w-full">
+      <Select v-model="modelVersion">
+        <Label> {{ t("toxicCommentAnalyser.modelVersionInputLabel") }} </Label>
+        <SelectTrigger>
+          <SelectValue placeholder="Model version" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="v1"> V1 </SelectItem>
+          <SelectItem value="v2"> V2 </SelectItem>
+          <SelectItem value="v3"> V3 </SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
 
     <div class="flex flex-col gap-4 w-full">
       <Label>{{ t("toxicCommentAnalyser.inputLabel") }}</Label>

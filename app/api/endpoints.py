@@ -59,7 +59,8 @@ def comment(version: Literal["v1", "v2", "v3"], data: CommentInputData, session:
 
     # Save to database
     offensive_comment = OffensiveComment(text=data.comment,
-                                         offensive_score=toxic_prob)
+                                         offensive_score=toxic_prob,
+                                         version=version)
     session.add(offensive_comment)
     session.commit()
     session.refresh(offensive_comment)
