@@ -54,7 +54,7 @@ def tweet(data: TweetInputData) -> TweetResponse:
 
 
 @router.post("/comment/{version}")
-def comment(version: Literal["v1", "v2", "v3"], data: CommentInputData, session: SessionDep) -> CommentResponse:
+def comment(version: Literal["v1", "v2", "v3", "v4"], data: CommentInputData, session: SessionDep) -> CommentResponse:
     toxic_prob, prediction = comment_model_pipeline(data.comment, version)
 
     # Save to database

@@ -37,7 +37,7 @@ const commentText = ref("");
 const response = ref<CommentResponse | null>(null);
 const loading = ref(false);
 const selectedFeedback = ref<"correct" | "incorrect" | null>(null);
-const modelVersion = ref<"v1" | "v2" | "v3">("v3");
+const modelVersion = ref<"v1" | "v2" | "v3" | "v4">("v4");
 
 const api = useDefaultApi();
 const { toast } = useToast();
@@ -124,6 +124,7 @@ const analyse = async () => {
           <SelectItem value="v1"> V1 </SelectItem>
           <SelectItem value="v2"> V2 </SelectItem>
           <SelectItem value="v3"> V3 </SelectItem>
+          <SelectItem value="v4"> V4 </SelectItem>
         </SelectContent>
       </Select>
     </div>
