@@ -13,3 +13,4 @@ class CommentResponse(BaseModel):
     toxic_prob: float
     is_toxic: bool
     id: int
+    perspective_score: float | None = None

@@ -143,6 +143,14 @@ const analyse = async () => {
         {{ formatPercentage(response.toxic_prob) }}
         {{ t("toxicCommentAnalyser.formProbabilityLabel") }}
       </span>
+      <span v-if="response.perspective_score" class="text-xs">
+        {{
+          formatPercentage(response.perspective_score, {
+            maximumFractionDigits: 2,
+          })
+        }}
+        Perspective API Score
+      </span>
       <PercentageBar :probability="response.toxic_prob" />
 
       <div class="flex flex-row gap-2">

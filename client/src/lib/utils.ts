@@ -21,10 +21,14 @@ export function readFilePromise(file: File) {
   });
 }
 
-export const formatPercentage = (value: number) => {
+export const formatPercentage = (
+  value: number,
+  options?: Intl.NumberFormatOptions
+) => {
   const percentage = (value * 100).toLocaleString(undefined, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
+    ...options,
   });
   return percentage + "%";
 };

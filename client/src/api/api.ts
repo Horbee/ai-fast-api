@@ -86,6 +86,12 @@ export interface CommentResponse {
      * @memberof CommentResponse
      */
     'id': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CommentResponse
+     */
+    'perspective_score'?: number | null;
 }
 /**
  * 
