@@ -1,13 +1,13 @@
 from card_analyser import model_pipeline as card_model_pipeline
 from titanic_predictor import model_pipeline as titanic_model_pipeline
 from rain_predictor import model_pipeline as rain_model_pipeline
-from tweet_classifier import model_pipeline as tweet_model_pipeline
+# from tweet_classifier import model_pipeline as tweet_model_pipeline
 from comment_analyser import comment_model_pipeline
-from comment_analyser.perspective_score import get_perspective_score
+# from comment_analyser.perspective_score import get_perspective_score
 from card_analyser.types import CardResponse
 from titanic_predictor.types import TitanicInputData, TitanicResponse
 from rain_predictor.types import RainInputData, RainResponse
-from tweet_classifier.types import TweetInputData, TweetResponse
+# from tweet_classifier.types import TweetInputData, TweetResponse
 from comment_analyser.types import CommentInputData, CommentResponse, CommentPutData
 from db import SessionDep, OffensiveComment
 from fastapi import APIRouter, UploadFile
@@ -48,32 +48,32 @@ def rain(data: RainInputData) -> RainResponse:
     return {"probability": result}
 
 
-@router.post("/tweet")
-def tweet(data: TweetInputData) -> TweetResponse:
-    disaster_prob, prediction = tweet_model_pipeline(data.tweet)
-    return {"disaster_prob": disaster_prob, "is_disaster": prediction}
+# @router.post("/tweet")
+# def tweet(data: TweetInputData) -> TweetResponse:
+#     disaster_prob, prediction = tweet_model_pipeline(data.tweet)
+#     return {"disaster_prob": disaster_prob, "is_disaster": prediction}
 
 
-@router.post("/comment/{version}")
-def comment(version: Literal["v1", "v2", "v3", "v4"], data: CommentInputData, session: SessionDep) -> CommentResponse:
-    toxic_prob, prediction = comment_model_pipeline(data.comment, version)
+@router.post("/comment")
+def comment(data: CommentInputData, session: SessionDep) -> CommentResponse:
+    predictions = comment_model_pipeline(data.comment)
 
-    try:
-        perspective_score = get_perspective_score(data.comment)
-    except Exception as e:
-        print(e)
-        perspective_score = None
+    # try:
+    #     perspective_score = get_perspective_score(data.comment)
+    # except Exception as e:
+    #     print(e)
+    #     perspective_score = None
 
     # Save to database
-    offensive_comment = OffensiveComment(text=data.comment,
-                                         offensive_score=toxic_prob,
-                                         version=version,
-                                         perspective_score=perspective_score)
-    session.add(offensive_comment)
-    session.commit()
-    session.refresh(offensive_comment)
+    # offensive_comment = OffensiveComment(text=data.comment,
+    #                                      offensive_score=toxic_prob,
+    #                                      version=version,
+    #                                      perspective_score=0)
+    # session.add(offensive_comment)
+    # session.commit()
+    # session.refresh(offensive_comment)
 
-    return {"toxic_prob": toxic_prob, "is_toxic": prediction, "id": offensive_comment.id, "perspective_score": perspective_score}
+    return {"predictions": predictions, "id": 0, "perspective_score": 0}
 
 
 @router.put("/comment/{id}")
