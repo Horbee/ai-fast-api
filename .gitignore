@@ -7,4 +7,6 @@ venv
 tweet_classifier.pth
 german_toxic_classifier.pth
 german_toxic_classifier_*.pth
-database.db
+*.db
+
+**/model_data/*
