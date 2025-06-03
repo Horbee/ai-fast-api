@@ -8,7 +8,14 @@ class CommentPutData(BaseModel):
     is_correct: bool
 
 
+class CommentPipelineResponse(BaseModel):
+    bert_cased_v4_probabilities: list[float]
+    electra_uncased_downsampled_probabilities: list[float]
+
+
 class CommentResponse(BaseModel):
-    predictions: dict[str, list[float]]
+    predictions: CommentPipelineResponse
     id: int
     perspective_score: float | None = None
+
+
