@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-const props = defineProps<{ probability: number }>();
+const { probability, fillClass } = defineProps<{
+  probability: number;
+  fillClass?: string;
+}>();
 
 const width = computed(() => {
-  return `${250 * props.probability}px`;
+  return `${250 * probability}px`;
 });
 </script>
 
@@ -13,6 +16,7 @@ const width = computed(() => {
     <div class="h-4 w-[250px] bg-slate-400 rounded-full"></div>
     <div
       class="h-4 bg-blue-700 absolute top-0 left-0 animate-fill rounded-full"
+      :class="fillClass"
       :style="{ width }"
     ></div>
   </div>

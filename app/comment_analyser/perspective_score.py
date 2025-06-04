@@ -1,14 +1,11 @@
 from googleapiclient import discovery
-import os
+from config import settings
 
-API_KEY = os.getenv("PERSP_API_KEY")
-if not API_KEY:
-    raise ValueError("PERSP_API_KEY is not set")
 
 client = discovery.build(
     "commentanalyzer",
     "v1alpha1",
-    developerKey=API_KEY,
+    developerKey=settings.persp_api_key,
     discoveryServiceUrl="https://commentanalyzer.googleapis.com/$discovery/rest?version=v1alpha1",
     static_discovery=False,
 )

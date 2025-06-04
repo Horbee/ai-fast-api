@@ -155,7 +155,7 @@ const i18n = createI18n({
             description: "Error while submitting feedback",
           },
         },
-        formProbabilityLabel: "chance of being offensive",
+        formProbabilityLabel: "Ensemble offensive score",
       },
     },
     hu: {
@@ -296,7 +296,7 @@ const i18n = createI18n({
             description: "Hiba történt a visszajelzés elküldésekor",
           },
         },
-        formProbabilityLabel: "esély, hogy offenzív",
+        formProbabilityLabel: "közös offenzív pontszám",
       },
     },
     de: {
@@ -438,7 +438,7 @@ const i18n = createI18n({
             description: "Fehler beim Speichern des Feedbacks",
           },
         },
-        formProbabilityLabel: "Chance, dass es offensiv ist",
+        formProbabilityLabel: "gemeinsamer offensiver Score",
       },
     },
   },

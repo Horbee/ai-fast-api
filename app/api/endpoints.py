@@ -2,7 +2,7 @@ from card_analyser import model_pipeline as card_model_pipeline
 from titanic_predictor import model_pipeline as titanic_model_pipeline
 from rain_predictor import model_pipeline as rain_model_pipeline
 from comment_analyser import comment_model_pipeline
-# from comment_analyser.perspective_score import get_perspective_score
+from comment_analyser.perspective_score import get_perspective_score
 from card_analyser.types import CardResponse
 from titanic_predictor.types import TitanicInputData, TitanicResponse
 from rain_predictor.types import RainInputData, RainResponse
@@ -13,7 +13,6 @@ from sqlmodel import select
 from datetime import datetime
 import io
 from PIL import Image
-from typing import Literal
 
 router = APIRouter(prefix="/api")
 
@@ -50,22 +49,23 @@ def rain(data: RainInputData) -> RainResponse:
 def comment(data: CommentInputData, session: SessionDep) -> CommentResponse:
     predictions = comment_model_pipeline(data.comment)
 
-    # try:
-    #     perspective_score = get_perspective_score(data.comment)
-    # except Exception as e:
-    #     print(e)
-    #     perspective_score = None
+    try:
+        perspective_score = get_perspective_score(data.comment)
+    except Exception as e:
+        print(e)
+        perspective_score = None
 
     # Save to database
-    # offensive_comment = OffensiveComment(text=data.comment,
-    #                                      offensive_score=toxic_prob,
-    #                                      version=version,
-    #                                      perspective_score=0)
-    # session.add(offensive_comment)
-    # session.commit()
-    # session.refresh(offensive_comment)
+    offensive_comment = OffensiveComment(text=data.comment,
+                                         bert_offensive_score=predictions["bert_cased_v4_probabilities"][1],
+                                         electra_offensive_score=predictions[
+                                             "electra_uncased_downsampled_probabilities"][1],
+                                         perspective_score=perspective_score)
+    session.add(offensive_comment)
+    session.commit()
+    session.refresh(offensive_comment)
 
-    return {"predictions": predictions, "id": 0, "perspective_score": 0}
+    return {"predictions": predictions, "id": offensive_comment.id, "perspective_score": perspective_score}
 
 
 @router.put("/comment/{id}")
