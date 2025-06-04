@@ -73,15 +73,6 @@ import {
             </DrawerClose>
             <DrawerClose as-child>
               <RouterLink
-                to="/tweet"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("tweetAnalyser.name") }}
-              </RouterLink>
-            </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
                 to="/card"
                 class="transition-colors hover:text-foreground/80 text-foreground/60"
                 activeClass="!text-foreground shadow-sm"
@@ -110,13 +101,6 @@ import {
             activeClass="!text-foreground shadow-sm"
           >
             {{ $t("rainPredictor.name") }}
-          </RouterLink>
-          <RouterLink
-            to="/tweet"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("tweetAnalyser.name") }}
           </RouterLink>
           <RouterLink
             to="/german-comment"

@@ -134,19 +134,6 @@ const i18n = createI18n({
           "two of spades": "two of spades",
         },
       },
-      tweetAnalyser: {
-        name: "Disaster Tweet",
-        buttonTitle: "Analyse",
-        description:
-          "This model is based on {link} and can detect disaster tweets.",
-        inputLabel: "Tweet Text",
-        examplesLabel: "Try one of these:",
-        error: {
-          title: "Uh oh! Something went wrong.",
-          description: "Error while analysing tweet",
-        },
-        formProbabilityLabel: "chance of being a disaster tweet",
-      },
       toxicCommentAnalyser: {
         name: "Offensive Comment Analyser - German",
         buttonTitle: "Analyse",
@@ -287,19 +274,6 @@ const i18n = createI18n({
           "two of hearts": "kőr kettes",
           "two of spades": "pikk kettes",
         },
-      },
-      tweetAnalyser: {
-        name: "Katasztrófa Tweet",
-        buttonTitle: "Elemzés",
-        description:
-          "Ez a {link} alapú modell képes felismerni a katasztrófákról szóló tweeteket.",
-        error: {
-          title: "Hoppá! Valami hiba történt.",
-          description: "Hiba történt az elemzés során",
-        },
-        inputLabel: "Tweet szöveg (EN)",
-        examplesLabel: "Próbáld ki az egyiket ezek közül:",
-        formProbabilityLabel: "esély, hogy katasztrófáról szól",
       },
       toxicCommentAnalyser: {
         name: "Offenzív Megjegyzés Analizátor - Német",
@@ -442,19 +416,6 @@ const i18n = createI18n({
           "two of hearts": "Zwei Herz",
           "two of spades": "Zwei Pik",
         },
-      },
-      tweetAnalyser: {
-        name: "Disaster Tweet",
-        buttonTitle: "Analyse",
-        description:
-          "Dieses Modell ist auf {link} spezialisiert und kann Disaster-Tweets erkennen.",
-        error: {
-          title: "Hoppla! Etwas ist schief gelaufen.",
-          description: "Fehler beim Analysieren des Tweets",
-        },
-        inputLabel: "Tweet-Text (EN)",
-        examplesLabel: "Versuche es mit einem dieser:",
-        formProbabilityLabel: "Chance, dass es um eine Katastrophe geht",
       },
       toxicCommentAnalyser: {
         name: "Offensive Kommentar-Analysator",

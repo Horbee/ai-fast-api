@@ -4,9 +4,7 @@ __pycache__
 .env
 venv
 .DS_Store
-tweet_classifier.pth
-german_toxic_classifier.pth
-german_toxic_classifier_*.pth
 *.db
+*.pth
 
 **/model_data/*
