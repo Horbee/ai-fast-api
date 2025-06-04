@@ -46,6 +46,15 @@ import {
           <nav class="flex flex-col space-y-3 my-4 pl-6">
             <DrawerClose as-child>
               <RouterLink
+                to="/german-comment"
+                class="transition-colors hover:text-foreground/80 text-foreground/60"
+                activeClass="!text-foreground shadow-sm"
+              >
+                {{ $t("toxicCommentAnalyser.name") }}
+              </RouterLink>
+            </DrawerClose>
+            <DrawerClose as-child>
+              <RouterLink
                 to="/titanic"
                 class="transition-colors hover:text-foreground/80 text-foreground/60"
                 activeClass="!text-foreground shadow-sm"
@@ -60,15 +69,6 @@ import {
                 activeClass="!text-foreground shadow-sm"
               >
                 {{ $t("rainPredictor.name") }}
-              </RouterLink>
-            </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
-                to="/german-comment"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("toxicCommentAnalyser.name") }}
               </RouterLink>
             </DrawerClose>
             <DrawerClose as-child>
@@ -89,6 +89,13 @@ import {
           class="flex items-center max-lg:space-x-4 space-x-6 text-sm font-medium"
         >
           <RouterLink
+            to="/german-comment"
+            class="transition-colors hover:text-foreground/80 text-foreground/60"
+            activeClass="!text-foreground shadow-sm"
+          >
+            {{ $t("toxicCommentAnalyser.name") }}
+          </RouterLink>
+          <RouterLink
             to="/titanic"
             class="transition-colors hover:text-foreground/80 text-foreground/60"
             activeClass="!text-foreground shadow-sm"
@@ -101,13 +108,6 @@ import {
             activeClass="!text-foreground shadow-sm"
           >
             {{ $t("rainPredictor.name") }}
-          </RouterLink>
-          <RouterLink
-            to="/german-comment"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("toxicCommentAnalyser.name") }}
           </RouterLink>
           <RouterLink
             to="/card"
