@@ -26,19 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
- * @interface CardResponse
- */
-export interface CardResponse {
-    /**
-     * 
-     * @type {Array<ProbabilityResponse>}
-     * @memberof CardResponse
-     */
-    'probabilities': Array<ProbabilityResponse>;
-}
-/**
- * 
- * @export
  * @interface CommentInputData
  */
 export interface CommentInputData {
@@ -118,25 +105,6 @@ export interface HTTPValidationError {
      * @memberof HTTPValidationError
      */
     'detail'?: Array<ValidationError>;
-}
-/**
- * 
- * @export
- * @interface ProbabilityResponse
- */
-export interface ProbabilityResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ProbabilityResponse
-     */
-    'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ProbabilityResponse
-     */
-    'probability': number;
 }
 /**
  * 
@@ -259,47 +227,6 @@ export interface ValidationErrorLocInner {
  */
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * 
-         * @summary Card
-         * @param {File} image 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cardApiCardPost: async (image: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'image' is not null or undefined
-            assertParamExists('cardApiCardPost', 'image', image)
-            const localVarPath = `/api/card`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
-
-
-            if (image !== undefined) { 
-                localVarFormParams.append('image', image as any);
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * 
          * @summary Comment
@@ -490,17 +417,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Card
-         * @param {File} image 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async cardApiCardPost(image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CardResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cardApiCardPost(image, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Comment
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
@@ -566,16 +482,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary Card
-         * @param {File} image 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cardApiCardPost(image: File, options?: any): AxiosPromise<CardResponse> {
-            return localVarFp.cardApiCardPost(image, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Comment
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
@@ -634,18 +540,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
-    /**
-     * 
-     * @summary Card
-     * @param {File} image 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public cardApiCardPost(image: File, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).cardApiCardPost(image, options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * 
      * @summary Comment

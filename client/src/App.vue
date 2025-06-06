@@ -73,15 +73,6 @@ import "vue-sonner/style.css";
                 {{ $t("rainPredictor.name") }}
               </RouterLink>
             </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
-                to="/card"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("cardAnalyser.name") }}
-              </RouterLink>
-            </DrawerClose>
           </nav>
         </DrawerContent>
       </Drawer>
@@ -110,13 +101,6 @@ import "vue-sonner/style.css";
             activeClass="!text-foreground shadow-sm"
           >
             {{ $t("rainPredictor.name") }}
-          </RouterLink>
-          <RouterLink
-            to="/card"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("cardAnalyser.name") }}
           </RouterLink>
         </nav>
       </div>

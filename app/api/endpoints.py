@@ -1,18 +1,14 @@
-from card_analyser import model_pipeline as card_model_pipeline
 from titanic_predictor import model_pipeline as titanic_model_pipeline
 from rain_predictor import model_pipeline as rain_model_pipeline
 from comment_analyser import comment_model_pipeline
 from comment_analyser.perspective_score import get_perspective_score
-from card_analyser.types import CardResponse
 from titanic_predictor.types import TitanicInputData, TitanicResponse
 from rain_predictor.types import RainInputData, RainResponse
 from comment_analyser.types import CommentInputData, CommentResponse, CommentPutData
 from db import SessionDep, OffensiveComment
-from fastapi import APIRouter, UploadFile
+from fastapi import APIRouter
 from sqlmodel import select
 from datetime import datetime
-import io
-from PIL import Image
 
 router = APIRouter(prefix="/api")
 
@@ -20,16 +16,6 @@ router = APIRouter(prefix="/api")
 @router.get("/health")
 def health_check() -> dict[str, str]:
     return {"status": "UP"}
-
-
-@router.post("/card")
-def card(image: UploadFile) -> CardResponse:
-    content = image.file.read()
-
-    image = Image.open(io.BytesIO(content))
-
-    probabilities = card_model_pipeline(image)
-    return {"probabilities": probabilities}
 
 
 @router.post("/titanic")

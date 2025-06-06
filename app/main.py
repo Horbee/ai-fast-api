@@ -2,7 +2,6 @@ from api.endpoints import router
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, HTTPException
 from starlette.exceptions import HTTPException as StarletteHTTPException
-import os
 from db import create_db_and_tables
 from contextlib import asynccontextmanager
 from config import settings
