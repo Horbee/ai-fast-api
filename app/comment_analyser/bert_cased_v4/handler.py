@@ -25,7 +25,7 @@ def model_pipeline(comment: str):
     inputs = tokenizer(
         comment,
         truncation=True,
-        padding=True,
+        # padding=True,
         max_length=256,
         return_tensors="pt"
     )

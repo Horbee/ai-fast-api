@@ -1,55 +1,146 @@
-An example app that shows how to build a ML app with FastAPI and Docker.
+# AI FastAPI Project
 
-The starter file is [model_starter.py](model_starter.py) with a model from Hugging Face: https://huggingface.co/dandelin/vilt-b32-finetuned-vqa
+A modern web application that demonstrates the integration of machine learning models with FastAPI backend and Vue frontend. The project includes multiple ML models for different purposes including comment analysis, rain prediction, and Titanic survival prediction.
 
-The final app is in [main.py](main.py) and final model code is in [model.py](model.py).
+## 🚀 Features
 
-Below are the steps to use Docker:
+- FastAPI backend with multiple ML model endpoints
+- Modern Vue.js frontend with TypeScript
+- Docker containerization for easy deployment
+- Poetry for Python dependency management
+- PNPM for frontend package management
+- SQLite database for data persistence
 
-## Steps to Setup Docker and VS Code
-
-STEP: Run `docker init`
-
-```
-docker init
-```
-
-STEP: Select Python image and use this command during docker init
-```
-CMD uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-STEP: Remove `-slim` and add this to Dockerfile (Needed to install transformers)
+## 🏗️ Project Structure
 
 ```
-# Install Rust compiler
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
+.
+├── app/                    # Backend FastAPI application
+│   ├── api/               # API endpoints
+│   ├── comment_analyser/  # Comment analysis ML model
+│   ├── rain_predictor/    # Rain prediction ML model
+│   ├── titanic_predictor/ # Titanic survival prediction model
+│   ├── main.py           # FastAPI application entry point
+│   ├── db.py             # Database configuration
+│   └── config.py         # Application configuration
+├── client/                # Frontend Vue.js application
+│   ├── src/              # Source code
+│   ├── dist/             # Production build output
+│   └── public/           # Static assets
+└── docker-compose.yml    # Docker compose configuration
 ```
 
-STEP: Remove the custom user from the Dockerfile to simplify, because HF needs write permissions to download and save the model.
+## 🛠️ Prerequisites
 
-STEP: Add volume to `compose.yaml`:
+- Python 3.8+
+- Node.js 16+
+- Docker and Docker Compose
+- Poetry (Python package manager)
+- PNPM (Node.js package manager)
+
+## 🚀 Getting Started
+
+### Development Setup
+
+1. Install Poetry:
+
+   ```bash
+   curl -sSL https://install.python-poetry.org | python3 -
+   ```
+
+2. Install backend dependencies:
+
+   ```bash
+   poetry install
+   ```
+
+3. Activate virtual environment:
+
+   ```bash
+   poetry shell
+   ```
+
+4. Start the backend development server:
+
+   ```bash
+   fastapi dev app/main.py
+   ```
+
+   For production:
+
+   ```bash
+   fastapi run app/main.py
+   ```
+
+5. In a new terminal, set up the frontend:
+   ```bash
+   cd client
+   pnpm install
+   pnpm dev
+   ```
+
+The application will now be running with:
+
+- Backend API at: http://localhost:8000
+- Frontend at: http://localhost:5173
+
+### Production Setup
+
+1. Build the frontend:
+
+   ```bash
+   cd client
+   pnpm install
+   pnpm build
+   ```
+
+   This will create a production build in the `client/dist` directory.
+
+2. Set the environment variable:
+
+   ```bash
+   export ENVIRONMENT=production
+   ```
+
+3. Start the production server:
+   ```bash
+   fastapi run app/main.py
+   ```
+
+In production mode, the FastAPI server will serve the static frontend content from the built `dist` directory, making the application available at:
+
+- http://localhost:8000
+
+### Docker Setup
+
+1. Build and run with Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
+
+## 📚 API Documentation
+
+Once the server is running, you can access:
+
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+## 🔒 Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
 
 ```
-    volumes:
-      - .:/app
+DATABASE_URL=sqlite:///./database.db
+ENVIRONMENT=development  # or 'production' to serve static frontend
 ```
 
-STEP Run `docker compose up --build`
+## 🤝 Contributing
 
-STEP: Attach VS Code to running container
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Submit a pull request
 
-## Examples
+## 📝 License
 
-- file: cats.jpeg
-  
-  text: How many cats are there?
-
-- file: tiger.jpeg
-
-  text: What's the animal doing?
-
-- file: palace.jpeg
-
-  text: What is on top of the building?
+This project is licensed under the MIT License.

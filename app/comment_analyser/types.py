@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class CommentInputData(BaseModel):
     comment: str
 
@@ -16,6 +17,4 @@ class CommentPipelineResponse(BaseModel):
 class CommentResponse(BaseModel):
     predictions: CommentPipelineResponse
     id: int
-    perspective_score: float | None = None
-
-
+    perspective_score: float | None

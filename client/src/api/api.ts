@@ -91,7 +91,7 @@ export interface CommentResponse {
      * @type {number}
      * @memberof CommentResponse
      */
-    'perspective_score'?: number | null;
+    'perspective_score': number | null;
 }
 /**
  * 

@@ -9,6 +9,7 @@ from db import SessionDep, OffensiveComment
 from fastapi import APIRouter
 from sqlmodel import select
 from datetime import datetime
+from config import settings
 
 router = APIRouter(prefix="/api")
 
