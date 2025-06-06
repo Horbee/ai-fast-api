@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { toast } from "vue-sonner";
 
 import PercentageBar from "@/components/PercentageBar.vue";
 import { Button } from "@/components/ui/button";
 import { useDefaultApi } from "@/composables/useDefaultApi";
-import { useToast } from "@/components/ui/toast/use-toast";
 import { Label } from "@/components/ui/label";
 import {
   NumberField,
@@ -21,7 +21,6 @@ const probability = ref<number | null>(null);
 const loading = ref(false);
 
 const api = useDefaultApi();
-const { toast } = useToast();
 const { t } = useI18n();
 
 const onClick = async () => {
@@ -32,10 +31,8 @@ const onClick = async () => {
     probability.value = data.probability;
   } catch (error) {
     console.error("Error while predicting response", error);
-    toast({
-      title: t("rainPredictor.error.title"),
+    toast.error(t("rainPredictor.error.title"), {
       description: t("rainPredictor.error.description"),
-      variant: "destructive",
     });
   } finally {
     loading.value = false;

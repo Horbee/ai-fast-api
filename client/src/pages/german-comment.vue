@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
+import { toast } from "vue-sonner";
 
 import PercentageBar from "@/components/PercentageBar.vue";
 import { Button } from "@/components/ui/button";
 import { useDefaultApi } from "@/composables/useDefaultApi";
-import { useToast } from "@/components/ui/toast/use-toast";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardTitle } from "@/components/ui/card";
 
 import { Icon } from "@iconify/vue";
 import { formatPercentage } from "@/lib/utils";
+
 import type { CommentResponse } from "@/api";
 
 const inputText = ref("");
@@ -21,7 +22,6 @@ const loading = ref(false);
 const selectedFeedback = ref<"correct" | "incorrect" | null>(null);
 
 const api = useDefaultApi();
-const { toast } = useToast();
 const { t } = useI18n();
 
 const bertPredictions = computed(
@@ -54,13 +54,11 @@ const onFeedbackClick = async (feedback: "correct" | "incorrect") => {
     await api.updateCommentApiCommentIdPut(response.value.id, {
       is_correct: feedback === "correct",
     });
-    toast({ title: t("toxicCommentAnalyser.feedback.saved") });
+    toast.success(t("toxicCommentAnalyser.feedback.saved"));
   } catch (error) {
     console.error("Error while updating feedback", error);
-    toast({
-      title: t("toxicCommentAnalyser.feedback.error.title"),
+    toast.error(t("toxicCommentAnalyser.feedback.error.title"), {
       description: t("toxicCommentAnalyser.feedback.error.description"),
-      variant: "destructive",
     });
   }
 };
@@ -82,10 +80,8 @@ const analyse = async () => {
     selectedFeedback.value = null;
   } catch (error) {
     console.error("Error while predicting response", error);
-    toast({
-      title: t("toxicCommentAnalyser.error.title"),
+    toast.error(t("toxicCommentAnalyser.error.title"), {
       description: t("toxicCommentAnalyser.error.description"),
-      variant: "destructive",
     });
   } finally {
     loading.value = false;

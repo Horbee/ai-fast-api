@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { toast } from "vue-sonner";
 
 import PercentageBar from "@/components/PercentageBar.vue";
 import { Button } from "@/components/ui/button";
 import { useDefaultApi } from "@/composables/useDefaultApi";
-import { useToast } from "@/components/ui/toast/use-toast";
 import { Label } from "@/components/ui/label";
 import {
   NumberField,
@@ -28,7 +28,6 @@ const probability = ref<number | null>(null);
 const loading = ref(false);
 
 const api = useDefaultApi();
-const { toast } = useToast();
 const { t } = useI18n();
 
 const onClick = async () => {
@@ -44,10 +43,8 @@ const onClick = async () => {
     probability.value = data.probability;
   } catch (error) {
     console.error("Error while predicting response", error);
-    toast({
-      title: t("titanicPredictor.error.title"),
+    toast.error(t("titanicPredictor.error.title"), {
       description: t("titanicPredictor.error.description"),
-      variant: "destructive",
     });
   } finally {
     loading.value = false;
@@ -62,9 +59,9 @@ const onClick = async () => {
     </blockquote>
 
     <div class="flex flex-col gap-4 w-full">
+      <Label> {{ t("titanicPredictor.input.class.label") }} </Label>
       <Select v-model="formData.pclass">
-        <Label> {{ t("titanicPredictor.input.class.label") }} </Label>
-        <SelectTrigger>
+        <SelectTrigger class="w-full">
           <SelectValue placeholder="Select your ticket class" />
         </SelectTrigger>
         <SelectContent>
@@ -80,9 +77,9 @@ const onClick = async () => {
         </SelectContent>
       </Select>
 
+      <Label> {{ t("titanicPredictor.input.sex.label") }} </Label>
       <Select v-model="formData.sex">
-        <Label> {{ t("titanicPredictor.input.sex.label") }} </Label>
-        <SelectTrigger>
+        <SelectTrigger class="w-full">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

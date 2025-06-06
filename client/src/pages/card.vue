@@ -6,7 +6,7 @@ import Dropzone from "@/components/Dropzone.vue";
 import PercentageBar from "@/components/PercentageBar.vue";
 import { Button } from "@/components/ui/button";
 import { useDefaultApi } from "@/composables/useDefaultApi";
-import { useToast } from "@/components/ui/toast/use-toast";
+import { toast } from "vue-sonner";
 import cardSvg from "@/assets/card.svg";
 
 import type { ProbabilityResponse } from "@/api";
@@ -17,7 +17,6 @@ const probabilities = ref<ProbabilityResponse[]>([]);
 const loading = ref(false);
 
 const api = useDefaultApi();
-const { toast } = useToast();
 const { t } = useI18n();
 
 const onClick = async () => {
@@ -29,10 +28,8 @@ const onClick = async () => {
     probabilities.value = data.probabilities;
   } catch (error) {
     console.error("Error while analysing card", error);
-    toast({
-      title: t("cardAnalyser.error.title"),
+    toast.error(t("cardAnalyser.error.title"), {
       description: t("cardAnalyser.error.description"),
-      variant: "destructive",
     });
   } finally {
     loading.value = false;

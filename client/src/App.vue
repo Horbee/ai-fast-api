@@ -3,7 +3,6 @@ import { RouterLink, RouterView } from "vue-router";
 
 import ThemeSelector from "@/components/ThemeSelector.vue";
 
-import Toaster from "@/components/ui/toast/Toaster.vue";
 import { Icon } from "@iconify/vue";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +13,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+
+import { Toaster } from "@/components/ui/sonner";
+import "vue-sonner/style.css";
 </script>
 
 <template>
@@ -126,5 +128,5 @@ import {
     <RouterView />
   </div>
 
-  <Toaster />
+  <Toaster rich-colors />
 </template>
