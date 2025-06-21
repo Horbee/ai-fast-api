@@ -44,10 +44,10 @@ def comment(data: CommentInputData, session: SessionDep) -> CommentResponse:
 
     # Save to database
     offensive_comment = OffensiveComment(text=data.comment,
-                                         bert_offensive_score=predictions["bert_cased_v4_probabilities"][1],
-                                         electra_offensive_score=predictions[
-                                             "electra_uncased_downsampled_probabilities"][1],
-                                         perspective_score=perspective_score)
+                                         bert_offensive_score=predictions["bert_probabilities"][1],
+                                         electra_offensive_score=predictions["electra_probabilities"][1],
+                                         perspective_score=perspective_score
+                                         )
     session.add(offensive_comment)
     session.commit()
     session.refresh(offensive_comment)

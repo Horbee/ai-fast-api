@@ -25,12 +25,11 @@ const api = useDefaultApi();
 const { t } = useI18n();
 
 const bertPredictions = computed(
-  () => response.value?.predictions.bert_cased_v4_probabilities || []
+  () => response.value?.predictions.bert_probabilities || []
 );
 
 const electraPredictions = computed(
-  () =>
-    response.value?.predictions.electra_uncased_downsampled_probabilities || []
+  () => response.value?.predictions.electra_probabilities || []
 );
 
 const ensemblePredictions = computed(() => {

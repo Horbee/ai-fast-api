@@ -1,7 +1,7 @@
 import os
 import torch
 from transformers import ElectraTokenizer, ElectraForSequenceClassification
-from .utils import preprocess_german_text, clean_german_text, normalize_german_text
+from .utils import preprocess_german_text
 
 path = os.path.join(os.path.dirname(__file__), 'model_data/')
 tokenizer = ElectraTokenizer.from_pretrained(path)
@@ -10,8 +10,6 @@ model = ElectraForSequenceClassification.from_pretrained(path)
 
 def model_pipeline(comment: str):
     comment = preprocess_german_text(comment)
-    comment = clean_german_text(comment)
-    comment = normalize_german_text(comment)
 
     inputs = tokenizer(
         comment,

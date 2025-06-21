@@ -10,8 +10,8 @@ class CommentPutData(BaseModel):
 
 
 class CommentPipelineResponse(BaseModel):
-    bert_cased_v4_probabilities: list[float]
-    electra_uncased_downsampled_probabilities: list[float]
+    bert_probabilities: list[float]
+    electra_probabilities: list[float]
 
 
 class CommentResponse(BaseModel):

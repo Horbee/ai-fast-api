@@ -47,13 +47,13 @@ export interface CommentPipelineResponse {
      * @type {Array<number>}
      * @memberof CommentPipelineResponse
      */
-    'bert_cased_v4_probabilities': Array<number>;
+    'bert_probabilities': Array<number>;
     /**
      * 
      * @type {Array<number>}
      * @memberof CommentPipelineResponse
      */
-    'electra_uncased_downsampled_probabilities': Array<number>;
+    'electra_probabilities': Array<number>;
 }
 /**
  * 
