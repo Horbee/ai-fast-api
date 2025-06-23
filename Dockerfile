@@ -17,9 +17,17 @@ FROM python:3.11.5-slim as server_build
 
 WORKDIR /app
 
-COPY requirements.txt .
+# Install poetry
+RUN pip install poetry
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy poetry files
+COPY pyproject.toml poetry.lock ./
+
+# Configure poetry to not create a virtual environment since we're in a container
+RUN poetry config virtualenvs.create false
+
+# Install dependencies
+RUN poetry install --no-root
 
 COPY . .
 COPY --from=client_build /app/dist /app/client/dist
@@ -29,4 +37,4 @@ ENV ENVIRONMENT "production"
 
 EXPOSE ${PORT}
 
-CMD ["sh", "-c", "fastapi run app/main.py --port $PORT"]
+CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT}"]

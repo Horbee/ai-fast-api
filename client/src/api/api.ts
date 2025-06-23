@@ -26,19 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
- * @interface CardResponse
- */
-export interface CardResponse {
-    /**
-     * 
-     * @type {Array<ProbabilityResponse>}
-     * @memberof CardResponse
-     */
-    'probabilities': Array<ProbabilityResponse>;
-}
-/**
- * 
- * @export
  * @interface CommentInputData
  */
 export interface CommentInputData {
@@ -48,6 +35,25 @@ export interface CommentInputData {
      * @memberof CommentInputData
      */
     'comment': string;
+}
+/**
+ * 
+ * @export
+ * @interface CommentPipelineResponse
+ */
+export interface CommentPipelineResponse {
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof CommentPipelineResponse
+     */
+    'bert_probabilities': Array<number>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof CommentPipelineResponse
+     */
+    'electra_probabilities': Array<number>;
 }
 /**
  * 
@@ -70,16 +76,10 @@ export interface CommentPutData {
 export interface CommentResponse {
     /**
      * 
-     * @type {number}
+     * @type {CommentPipelineResponse}
      * @memberof CommentResponse
      */
-    'toxic_prob': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CommentResponse
-     */
-    'is_toxic': boolean;
+    'predictions': CommentPipelineResponse;
     /**
      * 
      * @type {number}
@@ -91,7 +91,7 @@ export interface CommentResponse {
      * @type {number}
      * @memberof CommentResponse
      */
-    'perspective_score'?: number | null;
+    'perspective_score': number | null;
 }
 /**
  * 
@@ -105,25 +105,6 @@ export interface HTTPValidationError {
      * @memberof HTTPValidationError
      */
     'detail'?: Array<ValidationError>;
-}
-/**
- * 
- * @export
- * @interface ProbabilityResponse
- */
-export interface ProbabilityResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ProbabilityResponse
-     */
-    'name': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ProbabilityResponse
-     */
-    'probability': number;
 }
 /**
  * 
@@ -210,38 +191,6 @@ export interface TitanicResponse {
 /**
  * 
  * @export
- * @interface TweetInputData
- */
-export interface TweetInputData {
-    /**
-     * 
-     * @type {string}
-     * @memberof TweetInputData
-     */
-    'tweet': string;
-}
-/**
- * 
- * @export
- * @interface TweetResponse
- */
-export interface TweetResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof TweetResponse
-     */
-    'disaster_prob': number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TweetResponse
-     */
-    'is_disaster': boolean;
-}
-/**
- * 
- * @export
  * @interface ValidationError
  */
 export interface ValidationError {
@@ -280,60 +229,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
-         * @summary Card
-         * @param {File} image 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cardApiCardPost: async (image: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'image' is not null or undefined
-            assertParamExists('cardApiCardPost', 'image', image)
-            const localVarPath = `/api/card`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
-
-
-            if (image !== undefined) { 
-                localVarFormParams.append('image', image as any);
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Comment
-         * @param {CommentApiCommentVersionPostVersionEnum} version 
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        commentApiCommentVersionPost: async (version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'version' is not null or undefined
-            assertParamExists('commentApiCommentVersionPost', 'version', version)
+        commentApiCommentPost: async (commentInputData: CommentInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'commentInputData' is not null or undefined
-            assertParamExists('commentApiCommentVersionPost', 'commentInputData', commentInputData)
-            const localVarPath = `/api/comment/{version}`
-                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            assertParamExists('commentApiCommentPost', 'commentInputData', commentInputData)
+            const localVarPath = `/api/comment`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -463,42 +367,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Tweet
-         * @param {TweetInputData} tweetInputData 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        tweetApiTweetPost: async (tweetInputData: TweetInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tweetInputData' is not null or undefined
-            assertParamExists('tweetApiTweetPost', 'tweetInputData', tweetInputData)
-            const localVarPath = `/api/tweet`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tweetInputData, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Update Comment
          * @param {number} id 
          * @param {CommentPutData} commentPutData 
@@ -549,25 +417,13 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Card
-         * @param {File} image 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async cardApiCardPost(image: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CardResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cardApiCardPost(image, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Comment
-         * @param {CommentApiCommentVersionPostVersionEnum} version 
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async commentApiCommentVersionPost(version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.commentApiCommentVersionPost(version, commentInputData, options);
+        async commentApiCommentPost(commentInputData: CommentInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.commentApiCommentPost(commentInputData, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -604,17 +460,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Tweet
-         * @param {TweetInputData} tweetInputData 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async tweetApiTweetPost(tweetInputData: TweetInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TweetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.tweetApiTweetPost(tweetInputData, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Update Comment
          * @param {number} id 
          * @param {CommentPutData} commentPutData 
@@ -637,24 +482,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @summary Card
-         * @param {File} image 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cardApiCardPost(image: File, options?: any): AxiosPromise<CardResponse> {
-            return localVarFp.cardApiCardPost(image, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Comment
-         * @param {CommentApiCommentVersionPostVersionEnum} version 
          * @param {CommentInputData} commentInputData 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        commentApiCommentVersionPost(version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options?: any): AxiosPromise<CommentResponse> {
-            return localVarFp.commentApiCommentVersionPost(version, commentInputData, options).then((request) => request(axios, basePath));
+        commentApiCommentPost(commentInputData: CommentInputData, options?: any): AxiosPromise<CommentResponse> {
+            return localVarFp.commentApiCommentPost(commentInputData, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -687,16 +521,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Tweet
-         * @param {TweetInputData} tweetInputData 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        tweetApiTweetPost(tweetInputData: TweetInputData, options?: any): AxiosPromise<TweetResponse> {
-            return localVarFp.tweetApiTweetPost(tweetInputData, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Update Comment
          * @param {number} id 
          * @param {CommentPutData} commentPutData 
@@ -718,27 +542,14 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
 export class DefaultApi extends BaseAPI {
     /**
      * 
-     * @summary Card
-     * @param {File} image 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public cardApiCardPost(image: File, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).cardApiCardPost(image, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Comment
-     * @param {CommentApiCommentVersionPostVersionEnum} version 
      * @param {CommentInputData} commentInputData 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public commentApiCommentVersionPost(version: CommentApiCommentVersionPostVersionEnum, commentInputData: CommentInputData, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).commentApiCommentVersionPost(version, commentInputData, options).then((request) => request(this.axios, this.basePath));
+    public commentApiCommentPost(commentInputData: CommentInputData, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).commentApiCommentPost(commentInputData, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -778,18 +589,6 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Tweet
-     * @param {TweetInputData} tweetInputData 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public tweetApiTweetPost(tweetInputData: TweetInputData, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).tweetApiTweetPost(tweetInputData, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Update Comment
      * @param {number} id 
      * @param {CommentPutData} commentPutData 
@@ -802,15 +601,5 @@ export class DefaultApi extends BaseAPI {
     }
 }
 
-/**
- * @export
- */
-export const CommentApiCommentVersionPostVersionEnum = {
-    V1: 'v1',
-    V2: 'v2',
-    V3: 'v3',
-    V4: 'v4'
-} as const;
-export type CommentApiCommentVersionPostVersionEnum = typeof CommentApiCommentVersionPostVersionEnum[keyof typeof CommentApiCommentVersionPostVersionEnum];
 
 

@@ -1,19 +1,13 @@
-from fastapi import HTTPException
-from typing import Literal
-from .v1.handler import model_pipeline as v1_model_pipeline
-from .v2.handler import model_pipeline as v2_model_pipeline
-from .v3.handler import model_pipeline as v3_model_pipeline
-from .v4.handler import model_pipeline as v4_model_pipeline
+from .bert_cased_v4.handler import model_pipeline as bert_model_pipeline
+from .electra.handler import model_pipeline as electra_model_pipeline
+from .types import CommentPipelineResponse
 
 
-def comment_model_pipeline(comment: str, version: Literal["v1", "v2", "v3", "v4"]):
-    if version == "v1":
-        return v1_model_pipeline(comment)
-    elif version == "v2":
-        return v2_model_pipeline(comment)
-    elif version == "v3":
-        return v3_model_pipeline(comment)
-    elif version == "v4":
-        return v4_model_pipeline(comment)
-    else:
-        raise HTTPException(status_code=400, detail="Invalid version")
+def comment_model_pipeline(comment: str) -> CommentPipelineResponse:
+    bert_probabilities = bert_model_pipeline(comment)
+    electra_probabilities = electra_model_pipeline(comment)
+
+    return {
+        "bert_probabilities": bert_probabilities[0].cpu().tolist(),
+        "electra_probabilities": electra_probabilities[0].cpu().tolist()
+    }

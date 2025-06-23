@@ -3,7 +3,6 @@ import { RouterLink, RouterView } from "vue-router";
 
 import ThemeSelector from "@/components/ThemeSelector.vue";
 
-import Toaster from "@/components/ui/toast/Toaster.vue";
 import { Icon } from "@iconify/vue";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +13,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+
+import { Toaster } from "@/components/ui/sonner";
+import "vue-sonner/style.css";
 </script>
 
 <template>
@@ -46,6 +48,15 @@ import {
           <nav class="flex flex-col space-y-3 my-4 pl-6">
             <DrawerClose as-child>
               <RouterLink
+                to="/german-comment"
+                class="transition-colors hover:text-foreground/80 text-foreground/60"
+                activeClass="!text-foreground shadow-sm"
+              >
+                {{ $t("toxicCommentAnalyser.name") }}
+              </RouterLink>
+            </DrawerClose>
+            <DrawerClose as-child>
+              <RouterLink
                 to="/titanic"
                 class="transition-colors hover:text-foreground/80 text-foreground/60"
                 activeClass="!text-foreground shadow-sm"
@@ -62,33 +73,6 @@ import {
                 {{ $t("rainPredictor.name") }}
               </RouterLink>
             </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
-                to="/german-comment"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("toxicCommentAnalyser.name") }}
-              </RouterLink>
-            </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
-                to="/tweet"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("tweetAnalyser.name") }}
-              </RouterLink>
-            </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
-                to="/card"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("cardAnalyser.name") }}
-              </RouterLink>
-            </DrawerClose>
           </nav>
         </DrawerContent>
       </Drawer>
@@ -97,6 +81,13 @@ import {
         <nav
           class="flex items-center max-lg:space-x-4 space-x-6 text-sm font-medium"
         >
+          <RouterLink
+            to="/german-comment"
+            class="transition-colors hover:text-foreground/80 text-foreground/60"
+            activeClass="!text-foreground shadow-sm"
+          >
+            {{ $t("toxicCommentAnalyser.name") }}
+          </RouterLink>
           <RouterLink
             to="/titanic"
             class="transition-colors hover:text-foreground/80 text-foreground/60"
@@ -111,27 +102,6 @@ import {
           >
             {{ $t("rainPredictor.name") }}
           </RouterLink>
-          <RouterLink
-            to="/tweet"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("tweetAnalyser.name") }}
-          </RouterLink>
-          <RouterLink
-            to="/german-comment"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("toxicCommentAnalyser.name") }}
-          </RouterLink>
-          <RouterLink
-            to="/card"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("cardAnalyser.name") }}
-          </RouterLink>
         </nav>
       </div>
       <ThemeSelector />
@@ -142,5 +112,5 @@ import {
     <RouterView />
   </div>
 
-  <Toaster />
+  <Toaster rich-colors />
 </template>

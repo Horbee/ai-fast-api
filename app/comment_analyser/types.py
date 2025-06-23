@@ -9,8 +9,12 @@ class CommentPutData(BaseModel):
     is_correct: bool
 
 
+class CommentPipelineResponse(BaseModel):
+    bert_probabilities: list[float]
+    electra_probabilities: list[float]
+
+
 class CommentResponse(BaseModel):
-    toxic_prob: float
-    is_toxic: bool
+    predictions: CommentPipelineResponse
     id: int
-    perspective_score: float | None = None
+    perspective_score: float | None

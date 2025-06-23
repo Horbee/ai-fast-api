@@ -2,13 +2,9 @@ from api.endpoints import router
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, HTTPException
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from dotenv import load_dotenv
-import os
 from db import create_db_and_tables
 from contextlib import asynccontextmanager
-
-
-load_dotenv()
+from config import settings
 
 
 @asynccontextmanager
@@ -34,6 +30,6 @@ class SPAStaticFiles(StaticFiles):
                 raise ex
 
 
-if os.getenv("ENVIRONMENT") == "production":
+if settings.environment == "production":
     app.mount("/", SPAStaticFiles(directory="client/dist",
               html=True), name="spa-static-files")

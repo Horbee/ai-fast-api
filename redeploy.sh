@@ -10,17 +10,12 @@ cd client && pnpm install
 pnpm run build && cd ..
 
 # 4. Create and activate virtual environment if it doesn't exist
-if [ ! -d "venv" ]; then
-    python3 -m venv venv
+if [ ! -d ".venv" ]; then
+    python3 -m venv .venv
 fi
-. venv/bin/activate
 
 # Install Python dependencies
-pip install --no-cache-dir -r requirements.txt
-
-# Deactivate virtual environment
-deactivate
-
+poetry install
 
 # 4. Restart application
-pm2 restart ai-fastapi
+pm2 restart ai-fast-api
