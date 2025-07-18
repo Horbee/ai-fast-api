@@ -35,6 +35,12 @@ export interface CommentInputData {
      * @memberof CommentInputData
      */
     'comment': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommentInputData
+     */
+    'explainer'?: boolean;
 }
 /**
  * 
@@ -44,16 +50,28 @@ export interface CommentInputData {
 export interface CommentPipelineResponse {
     /**
      * 
-     * @type {Array<number>}
+     * @type {Array<ScoreDict>}
      * @memberof CommentPipelineResponse
      */
-    'bert_probabilities': Array<number>;
+    'bert_probabilities': Array<ScoreDict>;
     /**
      * 
-     * @type {Array<number>}
+     * @type {Array<ScoreDict>}
      * @memberof CommentPipelineResponse
      */
-    'electra_probabilities': Array<number>;
+    'electra_probabilities': Array<ScoreDict>;
+    /**
+     * 
+     * @type {ShapValues}
+     * @memberof CommentPipelineResponse
+     */
+    'electra_shap_values'?: ShapValues | null;
+    /**
+     * 
+     * @type {ShapValues}
+     * @memberof CommentPipelineResponse
+     */
+    'bert_shap_values'?: ShapValues | null;
 }
 /**
  * 
@@ -143,6 +161,50 @@ export interface RainResponse {
      * @memberof RainResponse
      */
     'probability': number;
+}
+/**
+ * 
+ * @export
+ * @interface ScoreDict
+ */
+export interface ScoreDict {
+    /**
+     * 
+     * @type {string}
+     * @memberof ScoreDict
+     */
+    'label': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ScoreDict
+     */
+    'score': number;
+}
+/**
+ * 
+ * @export
+ * @interface ShapValues
+ */
+export interface ShapValues {
+    /**
+     * 
+     * @type {Array<Array<number>>}
+     * @memberof ShapValues
+     */
+    'values': Array<Array<number>>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof ShapValues
+     */
+    'base_values': Array<number>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ShapValues
+     */
+    'data': Array<string>;
 }
 /**
  * 

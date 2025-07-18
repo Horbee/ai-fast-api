@@ -1,31 +1,28 @@
 import os
-import torch
-from transformers import ElectraTokenizer, ElectraForSequenceClassification
+from transformers import ElectraTokenizer, ElectraForSequenceClassification, pipeline
 from .utils import preprocess_german_text
+import shap
 
 path = os.path.join(os.path.dirname(__file__), 'model_data/')
 tokenizer = ElectraTokenizer.from_pretrained(path)
 model = ElectraForSequenceClassification.from_pretrained(path)
 
 
-def model_pipeline(comment: str):
+def model_pipeline(comment: str, explainer: bool = False):
     comment = preprocess_german_text(comment)
 
-    inputs = tokenizer(
-        comment,
-        truncation=True,
-        padding=True,
-        max_length=256,
-        return_tensors="pt"
+    pipe = pipeline(
+        "text-classification",
+        model=model,
+        tokenizer=tokenizer,
+        top_k=None,
     )
 
-    return predict(inputs)
+    output = pipe(comment)
+    shap_values = None
 
+    if explainer:
+        shap_explainer = shap.Explainer(pipe)
+        shap_values = shap_explainer([comment])
 
-def predict(inputs):
-    model.eval()
-    with torch.inference_mode():
-        outputs = model(**inputs)
-
-    # Get the probabilities
-    return torch.nn.functional.softmax(outputs.logits, dim=1)
+    return output, shap_values

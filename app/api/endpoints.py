@@ -34,7 +34,7 @@ def rain(data: RainInputData) -> RainResponse:
 
 @router.post("/comment")
 def comment(data: CommentInputData, session: SessionDep) -> CommentResponse:
-    predictions = comment_model_pipeline(data.comment)
+    predictions = comment_model_pipeline(data.comment, data.explainer)
 
     try:
         perspective_score = get_perspective_score(data.comment)
@@ -44,8 +44,8 @@ def comment(data: CommentInputData, session: SessionDep) -> CommentResponse:
 
     # Save to database
     offensive_comment = OffensiveComment(text=data.comment,
-                                         bert_offensive_score=predictions["bert_probabilities"][1],
-                                         electra_offensive_score=predictions["electra_probabilities"][1],
+                                         bert_offensive_score=predictions["bert_probabilities"][1]["score"],
+                                         electra_offensive_score=predictions["electra_probabilities"][1]["score"],
                                          perspective_score=perspective_score
                                          )
     session.add(offensive_comment)

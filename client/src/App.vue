@@ -21,7 +21,7 @@ import "vue-sonner/style.css";
 <template>
   <header class="bg-background/80 backdrop-blur-lg border-b border-border">
     <div
-      class="container px-2 md:px-8 flex h-14 max-w-screen-2xl items-center justify-between"
+      class="container px-2 md:px-8 flex h-14 max-w-screen-2xl items-center justify-between mx-auto"
     >
       <Drawer direction="left">
         <DrawerTrigger class="md:hidden flex">

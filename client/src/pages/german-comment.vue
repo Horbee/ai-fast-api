@@ -4,9 +4,11 @@ import { useI18n } from "vue-i18n";
 import { toast } from "vue-sonner";
 
 import PercentageBar from "@/components/PercentageBar.vue";
+import ShapExplainer from "@/components/ShapExplainer.vue";
 import { Button } from "@/components/ui/button";
 import { useDefaultApi } from "@/composables/useDefaultApi";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardTitle } from "@/components/ui/card";
 
@@ -17,6 +19,7 @@ import type { CommentResponse } from "@/api";
 
 const inputText = ref("");
 const sentCommentText = ref("");
+const explainerMode = ref(false);
 const response = ref<CommentResponse | null>(null);
 const loading = ref(false);
 const selectedFeedback = ref<"correct" | "incorrect" | null>(null);
@@ -24,19 +27,47 @@ const selectedFeedback = ref<"correct" | "incorrect" | null>(null);
 const api = useDefaultApi();
 const { t } = useI18n();
 
-const bertPredictions = computed(
-  () => response.value?.predictions.bert_probabilities || []
-);
+const bertPredictions = computed(() => {
+  const offensiveScore =
+    response.value?.predictions.bert_probabilities.find(
+      (item) => item.label.toLowerCase() === "offensive"
+    )?.score || 0;
 
-const electraPredictions = computed(
-  () => response.value?.predictions.electra_probabilities || []
-);
+  const nonOffensiveScore =
+    response.value?.predictions.bert_probabilities.find(
+      (item) => item.label.toLowerCase() === "non-offensive"
+    )?.score || 0;
+
+  return {
+    offensive: offensiveScore,
+    nonOffensive: nonOffensiveScore,
+  };
+});
+
+const electraPredictions = computed(() => {
+  const offensiveScore =
+    response.value?.predictions.electra_probabilities.find(
+      (item) => item.label.toLowerCase() === "offensive"
+    )?.score || 0;
+
+  const nonOffensiveScore =
+    response.value?.predictions.electra_probabilities.find(
+      (item) => item.label.toLowerCase() === "non-offensive"
+    )?.score || 0;
+
+  return {
+    offensive: offensiveScore,
+    nonOffensive: nonOffensiveScore,
+  };
+});
 
 const ensemblePredictions = computed(() => {
   const nonOffensive =
-    (bertPredictions.value[0] + electraPredictions.value[0]) / 2;
+    (bertPredictions.value.nonOffensive +
+      electraPredictions.value.nonOffensive) /
+    2;
   const offensive =
-    (bertPredictions.value[1] + electraPredictions.value[1]) / 2;
+    (bertPredictions.value.offensive + electraPredictions.value.offensive) / 2;
 
   return {
     nonOffensive,
@@ -69,14 +100,17 @@ const onAnalyseClick = async () => {
 };
 
 const analyse = async () => {
+  response.value = null;
+  selectedFeedback.value = null;
+
   try {
     loading.value = true;
 
     const { data } = await api.commentApiCommentPost({
       comment: sentCommentText.value,
+      explainer: explainerMode.value,
     });
     response.value = data;
-    selectedFeedback.value = null;
   } catch (error) {
     console.error("Error while predicting response", error);
     toast.error(t("toxicCommentAnalyser.error.title"), {
@@ -95,9 +129,16 @@ const analyse = async () => {
       <Label>{{ t("toxicCommentAnalyser.inputLabel") }}</Label>
       <Textarea v-model="inputText" @keydown.enter="onAnalyseClick" />
 
-      <Button @click="onAnalyseClick" :disabled="loading" class="self-end">
-        {{ t("toxicCommentAnalyser.buttonTitle") }}
-      </Button>
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <Switch id="explainer" v-model="explainerMode" :disabled="loading" />
+          <Label for="explainer">Explainer mode</Label>
+        </div>
+
+        <Button @click="onAnalyseClick" :disabled="loading" class="self-end">
+          {{ t("toxicCommentAnalyser.buttonTitle") }}
+        </Button>
+      </div>
     </div>
 
     <!-- TEXT -->
@@ -121,8 +162,13 @@ const analyse = async () => {
           v-if="response"
           class="text-sm text-muted-foreground text-center my-2"
         >
-          Offensive Score: {{ formatPercentage(bertPredictions[1]) }}
+          Offensive Score: {{ formatPercentage(bertPredictions.offensive) }}
         </p>
+        <ShapExplainer
+          class="mt-8"
+          v-if="response?.predictions.bert_shap_values"
+          :shap-values="response.predictions.bert_shap_values"
+        />
       </div>
 
       <div class="w-1/2">
@@ -136,8 +182,13 @@ const analyse = async () => {
           v-if="response"
           class="text-sm text-muted-foreground text-center my-2"
         >
-          Offensive Score: {{ formatPercentage(electraPredictions[1]) }}
+          Offensive Score: {{ formatPercentage(electraPredictions.offensive) }}
         </p>
+        <ShapExplainer
+          class="mt-8"
+          v-if="response?.predictions.electra_shap_values"
+          :shap-values="response.predictions.electra_shap_values"
+        />
       </div>
     </div>
 
