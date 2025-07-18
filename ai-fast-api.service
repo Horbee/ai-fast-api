@@ -1,0 +1,16 @@
+[Unit]
+Description=AI FastAPI service
+After=network.target
+
+[Service]
+User=horbee
+WorkingDirectory=/home/horbee/ai-fast-api
+ExecStart=/home/horbee/ai-fast-api/.venv/bin/fastapi run app/main.py --port 8000
+Restart=always
+Environment=PYTHONUNBUFFERED=1
+Environment=PATH=/home/horbee/ai-fast-api/.venv/bin:/usr/bin
+EnvironmentFile=/home/horbee/ai-fast-api/.env
+
+
+[Install]
+WantedBy=multi-user.target

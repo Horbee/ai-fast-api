@@ -18,4 +18,4 @@ fi
 poetry install
 
 # 4. Restart application
-pm2 restart ai-fast-api
+sudo systemctl restart ai-fast-api
