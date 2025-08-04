@@ -16,6 +16,7 @@ import { Icon } from "@iconify/vue";
 import { formatPercentage } from "@/lib/utils";
 
 import type { CommentResponse } from "@/api";
+import InfoDialog from "@/components/InfoDialog.vue";
 
 const inputText = ref("");
 const sentCommentText = ref("");
@@ -153,9 +154,15 @@ const analyse = async () => {
     <div v-if="sentCommentText" class="flex justify-between gap-4">
       <div class="w-1/2">
         <Card
-          class="flex justify-center items-center p-6 relative ai-border ai-border-animate bg-background"
+          class="flex justify-center items-center p-4 relative ai-border ai-border-animate bg-background"
         >
-          <CardTitle>BERT</CardTitle>
+          <CardTitle class="flex items-center">
+            BERT v5
+            <InfoDialog
+              title="BERT v5"
+              description="A fine-tuned transformer model trained on 8,000 balanced examples for 2 epochs. Achieves 84.3% accuracy with strong performance metrics (F1: 0.796, AUC: 0.91) for German comment toxicity detection."
+            />
+          </CardTitle>
         </Card>
 
         <p
@@ -173,9 +180,15 @@ const analyse = async () => {
 
       <div class="w-1/2">
         <Card
-          class="flex justify-center items-center p-6 relative ai-border ai-border-animate bg-background"
+          class="flex justify-center items-center p-4 relative ai-border ai-border-animate bg-background"
         >
-          <CardTitle>ELECTRA</CardTitle>
+          <CardTitle class="flex items-center">
+            ELECTRA v2
+            <InfoDialog
+              title="ELECTRA v2"
+              description="A transformer-based model trained on 13,000 unbalanced examples using class weights for bias correction. Achieves 83.6% accuracy with robust performance metrics (F1: 0.785, AUC: 0.908) for German comment toxicity detection."
+            />
+          </CardTitle>
         </Card>
 
         <p

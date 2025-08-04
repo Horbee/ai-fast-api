@@ -1,4 +1,4 @@
-FROM node:lts-alpine as client_build
+FROM node:lts-alpine AS client_build
 
 RUN corepack enable
 
@@ -13,7 +13,7 @@ COPY ./client .
 
 RUN pnpm build
 
-FROM python:3.11.5-slim as server_build
+FROM python:3.13.5-slim-bullseye AS server_build
 
 WORKDIR /app
 
@@ -32,9 +32,9 @@ RUN poetry install --no-root
 COPY . .
 COPY --from=client_build /app/dist /app/client/dist
 
-ENV PORT 8000
-ENV ENVIRONMENT "production"
+ENV PORT=8000
+ENV ENVIRONMENT=production
 
 EXPOSE ${PORT}
 
-CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
+CMD ["poetry", "run", "fastapi", "run", "app/main.py"]

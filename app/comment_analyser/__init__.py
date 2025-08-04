@@ -1,5 +1,5 @@
-from .bert_cased_v4.handler import model_pipeline as bert_model_pipeline
-from .electra.handler import model_pipeline as electra_model_pipeline
+from .bert_uncased_v5.handler import model_pipeline as bert_model_pipeline
+from .electra_v2.handler import model_pipeline as electra_model_pipeline
 from .types import CommentPipelineResponse, ShapValues
 
 

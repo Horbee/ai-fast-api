@@ -35,3 +35,4 @@ LICENSE
 README.md
 .env
 dist/
+database.db
