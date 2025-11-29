@@ -1,11 +1,10 @@
-import os
-from transformers import ElectraTokenizer, ElectraForSequenceClassification, pipeline
+from transformers import BertTokenizer, BertForSequenceClassification, pipeline
 from .utils import preprocess_german_text
 import shap
 
-path = os.path.join(os.path.dirname(__file__), 'model_data/')
-tokenizer = ElectraTokenizer.from_pretrained(path)
-model = ElectraForSequenceClassification.from_pretrained(path)
+path = "Horbee/bert-german-offensive-comment-classifier"
+tokenizer = BertTokenizer.from_pretrained(path)
+model = BertForSequenceClassification.from_pretrained(path)
 
 
 def model_pipeline(comment: str, explainer: bool = False):

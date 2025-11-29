@@ -7,7 +7,7 @@ A modern web application that demonstrates the integration of machine learning m
 - FastAPI backend with multiple ML model endpoints
 - Modern Vue.js frontend with TypeScript
 - Docker containerization for easy deployment
-- Poetry for Python dependency management
+- UV for Python dependency management
 - PNPM for frontend package management
 - SQLite database for data persistence
 
@@ -35,32 +35,26 @@ A modern web application that demonstrates the integration of machine learning m
 - Python 3.8+
 - Node.js 16+
 - Docker and Docker Compose
-- Poetry (Python package manager)
+- UV (Python package manager)
 - PNPM (Node.js package manager)
 
 ## 🚀 Getting Started
 
 ### Development Setup
 
-1. Install Poetry:
+1. Install UV:
 
    ```bash
-   curl -sSL https://install.python-poetry.org | python3 -
+   curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
 
 2. Install backend dependencies:
 
    ```bash
-   poetry install
+   uv sync
    ```
 
-3. Activate virtual environment:
-
-   ```bash
-   poetry shell
-   ```
-
-4. Start the backend development server:
+3. Start the backend development server:
 
    ```bash
    fastapi dev app/main.py
@@ -69,10 +63,10 @@ A modern web application that demonstrates the integration of machine learning m
    For production:
 
    ```bash
-   fastapi run app/main.py
+   uv run fastapi run app/main.py
    ```
 
-5. In a new terminal, set up the frontend:
+4. In a new terminal, set up the frontend:
    ```bash
    cd client
    pnpm install

@@ -1,15 +1,16 @@
-FROM node:lts-alpine AS client_build
+FROM node:22-alpine AS client_build
 
 RUN corepack enable
 
 WORKDIR /app
 
-COPY ./client/package.json ./
-COPY ./client/pnpm-lock.yaml ./
+# Copy package files for dependency installation
+COPY client/package.json client/pnpm-lock.yaml ./
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
-COPY ./client .
+# Copy the rest of the client code
+COPY client .
 
 RUN pnpm build
 
@@ -17,17 +18,14 @@ FROM python:3.13.5-slim-bullseye AS server_build
 
 WORKDIR /app
 
-# Install poetry
-RUN pip install poetry
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Copy poetry files
-COPY pyproject.toml poetry.lock ./
-
-# Configure poetry to not create a virtual environment since we're in a container
-RUN poetry config virtualenvs.create false
+# Copy dependency files
+COPY pyproject.toml uv.lock ./
 
 # Install dependencies
-RUN poetry install --no-root
+RUN uv sync --frozen --no-dev
 
 COPY . .
 COPY --from=client_build /app/dist /app/client/dist
@@ -37,4 +35,4 @@ ENV ENVIRONMENT=production
 
 EXPOSE ${PORT}
 
-CMD ["poetry", "run", "fastapi", "run", "app/main.py"]
+CMD ["uv", "run", "fastapi", "run", "app/main.py"]

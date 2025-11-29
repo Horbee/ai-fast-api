@@ -15,7 +15,7 @@ if [ ! -d ".venv" ]; then
 fi
 
 # Install Python dependencies
-poetry install
+uv sync
 
 # 4. Restart application
 sudo systemctl restart ai-fast-api
