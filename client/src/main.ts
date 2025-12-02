@@ -92,6 +92,17 @@ const i18n = createI18n({
         },
         formProbabilityLabel: "Ensemble offensive score",
       },
+      gecGerman: {
+        name: "German Grammar Error Correction",
+        inputLabel: "Your sentence to fix (DE)",
+        buttonTitle: "Fix Sentence",
+        originalLabel: "Original",
+        correctedLabel: "Corrected",
+        error: {
+          title: "Uh oh! Something went wrong.",
+          description: "Error while fixing your sentence",
+        },
+      },
     },
     hu: {
       titanicPredictor: {
@@ -146,7 +157,7 @@ const i18n = createI18n({
         formProbabilityLabel: "Eső valószínűsége:",
       },
       toxicCommentAnalyser: {
-        name: "Offenzív Megjegyzés Analizátor - Német",
+        name: "Offenzív Megjegyzés Analizátor (DE)",
         buttonTitle: "Elemzés",
         description:
           "Ez a modell a {link} alapján képes felismerni a offenzív kommenteket.",
@@ -167,6 +178,17 @@ const i18n = createI18n({
           },
         },
         formProbabilityLabel: "közös offenzív pontszám",
+      },
+      gecGerman: {
+        name: "Grammatikai Hibajavítás (DE)",
+        inputLabel: "Hibás mondat a javításhoz (DE)",
+        buttonTitle: "Mondat javítása",
+        originalLabel: "Eredeti",
+        correctedLabel: "Javított",
+        error: {
+          title: "Hoppá! Valami hiba történt.",
+          description: "Hiba történt a mondat javítása során",
+        },
       },
     },
     de: {
@@ -244,6 +266,17 @@ const i18n = createI18n({
           },
         },
         formProbabilityLabel: "gemeinsamer offensiver Score",
+      },
+      gecGerman: {
+        name: "German Grammar Error Correction",
+        inputLabel: "Satz zur Korrektur (DE)",
+        buttonTitle: "Satz korrigieren",
+        originalLabel: "Original",
+        correctedLabel: "Korrigiert",
+        error: {
+          title: "Hoppla! Etwas ist schief gelaufen.",
+          description: "Fehler beim Korrigieren deines Satzes",
+        },
       },
     },
   },

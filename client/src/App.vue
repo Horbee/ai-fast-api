@@ -16,6 +16,7 @@ import {
 
 import { Toaster } from "@/components/ui/sonner";
 import "vue-sonner/style.css";
+import { APP_ROUTES } from "./lib/contants";
 </script>
 
 <template>
@@ -39,38 +40,20 @@ import "vue-sonner/style.css";
               <Button variant="ghost" size="icon">
                 <Icon
                   icon="radix-icons:cross-1"
-                  class="h-[1rem] w-[1rem] text-muted-foreground"
+                  class="h-4 w-4 text-muted-foreground"
                 />
               </Button>
             </DrawerClose>
           </DrawerHeader>
 
           <nav class="flex flex-col space-y-3 my-4 pl-6">
-            <DrawerClose as-child>
+            <DrawerClose as-child v-for="route in APP_ROUTES" :key="route.to">
               <RouterLink
-                to="/german-comment"
+                :to="route.to"
                 class="transition-colors hover:text-foreground/80 text-foreground/60"
                 activeClass="!text-foreground shadow-sm"
               >
-                {{ $t("toxicCommentAnalyser.name") }}
-              </RouterLink>
-            </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
-                to="/titanic"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("titanicPredictor.name") }}
-              </RouterLink>
-            </DrawerClose>
-            <DrawerClose as-child>
-              <RouterLink
-                to="/rain"
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                activeClass="!text-foreground shadow-sm"
-              >
-                {{ $t("rainPredictor.name") }}
+                {{ $t(route.nameKey) }}
               </RouterLink>
             </DrawerClose>
           </nav>
@@ -82,25 +65,13 @@ import "vue-sonner/style.css";
           class="flex items-center max-lg:space-x-4 space-x-6 text-sm font-medium"
         >
           <RouterLink
-            to="/german-comment"
+            v-for="route in APP_ROUTES"
+            :key="route.to"
+            :to="route.to"
             class="transition-colors hover:text-foreground/80 text-foreground/60"
             activeClass="!text-foreground shadow-sm"
           >
-            {{ $t("toxicCommentAnalyser.name") }}
-          </RouterLink>
-          <RouterLink
-            to="/titanic"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("titanicPredictor.name") }}
-          </RouterLink>
-          <RouterLink
-            to="/rain"
-            class="transition-colors hover:text-foreground/80 text-foreground/60"
-            activeClass="!text-foreground shadow-sm"
-          >
-            {{ $t("rainPredictor.name") }}
+            {{ $t(route.nameKey) }}
           </RouterLink>
         </nav>
       </div>

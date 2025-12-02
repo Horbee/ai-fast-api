@@ -114,6 +114,38 @@ export interface CommentResponse {
 /**
  * 
  * @export
+ * @interface GECInputData
+ */
+export interface GECInputData {
+    /**
+     * 
+     * @type {string}
+     * @memberof GECInputData
+     */
+    'sentence': string;
+}
+/**
+ * 
+ * @export
+ * @interface GECPipelineResponse
+ */
+export interface GECPipelineResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof GECPipelineResponse
+     */
+    'original_sentence': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GECPipelineResponse
+     */
+    'corrected_sentence': string;
+}
+/**
+ * 
+ * @export
  * @interface HTTPValidationError
  */
 export interface HTTPValidationError {
@@ -327,6 +359,42 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Gec German
+         * @param {GECInputData} gECInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        gecGermanApiGecGermanPost: async (gECInputData: GECInputData, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'gECInputData' is not null or undefined
+            assertParamExists('gecGermanApiGecGermanPost', 'gECInputData', gECInputData)
+            const localVarPath = `/api/gec_german`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(gECInputData, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Health Check
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -490,6 +558,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Gec German
+         * @param {GECInputData} gECInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async gecGermanApiGecGermanPost(gECInputData: GECInputData, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GECPipelineResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.gecGermanApiGecGermanPost(gECInputData, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Health Check
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -554,6 +633,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Gec German
+         * @param {GECInputData} gECInputData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        gecGermanApiGecGermanPost(gECInputData: GECInputData, options?: any): AxiosPromise<GECPipelineResponse> {
+            return localVarFp.gecGermanApiGecGermanPost(gECInputData, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Health Check
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -612,6 +701,18 @@ export class DefaultApi extends BaseAPI {
      */
     public commentApiCommentPost(commentInputData: CommentInputData, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).commentApiCommentPost(commentInputData, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Gec German
+     * @param {GECInputData} gECInputData 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public gecGermanApiGecGermanPost(gECInputData: GECInputData, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).gecGermanApiGecGermanPost(gECInputData, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

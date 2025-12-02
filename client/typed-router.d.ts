@@ -37,6 +37,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/german-gec': RouteRecordInfo<
+      '/german-gec',
+      '/german-gec',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/rain': RouteRecordInfo<
       '/rain',
       '/rain',
@@ -73,6 +80,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/german-comment.vue': {
       routes:
         | '/german-comment'
+      views:
+        | never
+    }
+    'src/pages/german-gec.vue': {
+      routes:
+        | '/german-gec'
       views:
         | never
     }
