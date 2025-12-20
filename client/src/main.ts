@@ -94,6 +94,7 @@ const i18n = createI18n({
       },
       gecGerman: {
         name: "German Grammar Error Correction",
+        modelSelectLabel: "Select model",
         inputLabel: "Your sentence to fix (DE)",
         buttonTitle: "Fix Sentence",
         originalLabel: "Original",
@@ -101,93 +102,6 @@ const i18n = createI18n({
         error: {
           title: "Uh oh! Something went wrong.",
           description: "Error while fixing your sentence",
-        },
-      },
-    },
-    hu: {
-      titanicPredictor: {
-        name: "Titanic",
-        buttonTitle: "Előrejelzés",
-        description: "Túlélnéd a Titanicot? Ez a modell megmondja.",
-        error: {
-          title: "Hoppá! Valami hiba történt.",
-          description: "Hiba történt az előrejelzés során",
-        },
-        input: {
-          class: {
-            label: "Jegyosztály",
-            value1: "1. = Felső",
-            value2: "2. = Középső",
-            value3: "3. = Alsó",
-          },
-          sex: {
-            label: "Nem",
-            value0: "Férfi",
-            value1: "Nő",
-          },
-          age: {
-            label: "Életkor",
-          },
-          family_size: {
-            label: "Családtagok száma a Titanicon",
-          },
-        },
-        formProbabilityLabel: "Túlélési esélyed:",
-      },
-      rainPredictor: {
-        name: "Csapadék",
-        buttonTitle: "Előrejelzés",
-        description:
-          "Ez a modell a csapadék valószínűségét jósolja a hőmérséklet, páratartalom és a felszíni nyomás alapján.",
-        error: {
-          title: "Hoppá! Valami hiba történt.",
-          description: "Hiba történt az előrejelzés során",
-        },
-        input: {
-          temp: {
-            label: "Hőmérséklet",
-          },
-          humidity: {
-            label: "Páratartalom",
-          },
-          pressure: {
-            label: "Felszíni nyomás",
-          },
-        },
-        formProbabilityLabel: "Eső valószínűsége:",
-      },
-      toxicCommentAnalyser: {
-        name: "Offenzív Megjegyzés Analizátor (DE)",
-        buttonTitle: "Elemzés",
-        description:
-          "Ez a modell a {link} alapján képes felismerni a offenzív kommenteket.",
-        inputLabel: "Komment szöveg (DE)",
-        modelVersionInputLabel: "Model Verzió",
-        examplesLabel: "Próbáld ki az egyiket ezek közül:",
-        error: {
-          title: "Hoppá! Valami hiba történt.",
-          description: "Hiba történt az elemzés során",
-        },
-        feedback: {
-          correct: "Helyes",
-          incorrect: "Helytelen",
-          saved: "Visszajelzés mentve",
-          error: {
-            title: "Hoppá! Valami hiba történt.",
-            description: "Hiba történt a visszajelzés elküldésekor",
-          },
-        },
-        formProbabilityLabel: "közös offenzív pontszám",
-      },
-      gecGerman: {
-        name: "Grammatikai Hibajavítás (DE)",
-        inputLabel: "Hibás mondat a javításhoz (DE)",
-        buttonTitle: "Mondat javítása",
-        originalLabel: "Eredeti",
-        correctedLabel: "Javított",
-        error: {
-          title: "Hoppá! Valami hiba történt.",
-          description: "Hiba történt a mondat javítása során",
         },
       },
     },
@@ -269,6 +183,7 @@ const i18n = createI18n({
       },
       gecGerman: {
         name: "German Grammar Error Correction",
+        modelSelectLabel: "Model auswählen",
         inputLabel: "Satz zur Korrektur (DE)",
         buttonTitle: "Satz korrigieren",
         originalLabel: "Original",

@@ -122,8 +122,28 @@ export interface GECInputData {
      * @type {string}
      * @memberof GECInputData
      */
-    'sentence': string;
+    'text': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GECInputData
+     */
+    'force'?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GECInputData
+     */
+    'model': GECInputDataModelEnum;
 }
+
+export const GECInputDataModelEnum = {
+    Ministral3: 'ministral-3',
+    Mt5: 'mt5'
+} as const;
+
+export type GECInputDataModelEnum = typeof GECInputDataModelEnum[keyof typeof GECInputDataModelEnum];
+
 /**
  * 
  * @export
@@ -141,7 +161,13 @@ export interface GECPipelineResponse {
      * @type {string}
      * @memberof GECPipelineResponse
      */
-    'corrected_sentence': string;
+    'corrected_sentence': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof GECPipelineResponse
+     */
+    'language': string | null;
 }
 /**
  * 

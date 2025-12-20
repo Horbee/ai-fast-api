@@ -1,6 +1,6 @@
 from titanic_predictor import model_pipeline as titanic_model_pipeline
 from rain_predictor import model_pipeline as rain_model_pipeline
-from gec_german import gec_model_pipeline
+from gec_german.pipeline import gec_model_pipeline
 from gec_german.types import GECPipelineResponse, GECInputData
 from comment_analyser import comment_model_pipeline
 from comment_analyser.perspective_score import get_perspective_score
@@ -35,7 +35,7 @@ def rain(data: RainInputData) -> RainResponse:
 
 @router.post("/gec_german")
 def gec_german(data: GECInputData) -> GECPipelineResponse:
-    return gec_model_pipeline(data.sentence)
+    return gec_model_pipeline(data)
 
 
 @router.post("/comment")
