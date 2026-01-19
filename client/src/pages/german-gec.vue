@@ -102,7 +102,7 @@ const onCorrectSentenceClick = async (force: boolean = false) => {
 
       <Button
         @click="onCorrectSentenceClick()"
-        :disabled="loading"
+        disabled
         class="w-full py-3 rounded-xl bg-linear-to-r from-blue-600 to-purple-600 text-white font-medium shadow-lg shadow-purple-900/30 hover:shadow-purple-900/50 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
       >
         {{ t("gecGerman.buttonTitle") }}
